@@ -14,8 +14,31 @@ int main(void)
         exit(EXIT_FAILURE);
     }
     printf("Pacman found !\n");
-    move(map, pacman, NORTH);
     printMap(map);
+    int continuer = 1;
+    char input;
+    while(continuer){
+        scanf(" %c", &input);
+        switch(input){
+            case 'q':
+                continuer = 0;
+                break;
+            case 'n':
+                move(map, pacman, NORTH);
+                break;
+            case 'e':
+                move(map, pacman, EAST);
+                break;
+            case 's':
+                move(map, pacman, SOUTH);
+                break;
+            case 'w':
+                move(map, pacman, WEST);
+                break;
+        }
+        printf("X : %d, Y : %d, points : %d\n", pacman->x, pacman->y, pacman->point);
+        printMap(map);
+    }
 
 //    printf("SDL initialisation\n");
 

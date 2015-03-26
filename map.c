@@ -71,7 +71,7 @@ Map *loadMap(char *path){
         }
         j = 0;
         while(j < strlen(line) - 1){
-            map->cells[i][j] = line[j] - '0';
+            map->cells[i][j] = line[j];
             j++;
         }
         if(j != map->col){
@@ -89,7 +89,7 @@ void printMap(Map *map){
     unsigned int i = 0, j = 0;
     for(i = 0 ; i < map->row ; i++){
         for(j = 0 ; j  < map->col ; j++){
-            printf("%d", map->cells[i][j]);
+            printf("%c", map->cells[i][j]);
         }
         printf("\n");
     }

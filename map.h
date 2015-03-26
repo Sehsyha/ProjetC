@@ -3,9 +3,10 @@
 
 #define MAX_SIZE 100
 #define TILE_SIZE 20
-#define GUM 0
-#define WALL 1
-#define PAC 2
+#define GUM '.'
+#define WALL '1'
+#define PAC '2'
+#define VOID '0'
 
 #define NORTH 0
 #define EAST 1
@@ -17,7 +18,7 @@ struct Map
 {
     unsigned int col;
     unsigned int row;
-    int **cells;
+    char **cells;
 };
 
 void printMap(Map *map);

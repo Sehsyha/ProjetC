@@ -54,7 +54,7 @@ int move(Map *map, Pacman *pacman, int move){
 }
 
 void moveCorrect(Map *map, Pacman *pacman, int changeX, int changeY){
-    map->cells[pacman->y][pacman->x] = GUM;
+    map->cells[pacman->y][pacman->x] = VOID;
     pacman->x += changeX;
     pacman->y += changeY;
     map->cells[pacman->y][pacman->x] = PAC;
@@ -63,11 +63,13 @@ void moveCorrect(Map *map, Pacman *pacman, int changeX, int changeY){
 
 int detectCollision(Map *map, Pacman *pacman, int changeX, int changeY){
     int correctMove = 1;
-    switch(map->cells[pacman->x + changeX][pacman->y + changeY]){
+    switch(map->cells[pacman->y + changeY][pacman->x + changeX]){
         case WALL:
             correctMove = 0;
             break;
         case GUM:
+            pacman->point += 1;
+        case VOID:
             moveCorrect(map, pacman, changeX, changeY);
             break;
     }
