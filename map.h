@@ -7,6 +7,11 @@
 #define WALL 1
 #define PAC 2
 
+#define NORTH 0
+#define EAST 1
+#define SOUTH 2
+#define WEST 3
+
 typedef struct Map Map;
 struct Map
 {
