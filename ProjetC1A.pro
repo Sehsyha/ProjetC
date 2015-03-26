@@ -4,8 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 LIBS += -lSDL2
 SOURCES += main.c \
-    map.c
+    map.c \
+    pacman.c
 
 HEADERS += \
-    map.h
+    map.h \
+    pacman.h
 

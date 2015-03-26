@@ -1,11 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "map.h"
+#include "pacman.h"
 #include <SDL2/SDL.h>
 
 int main(void)
 {
     Map *map = loadMap("1.map");
+    Pacman *pacman = searchAndCreate(map);
+    if(!pacman){
+        printf("Pacman not found on map\n");
+        freeMap(map);
+        exit(EXIT_FAILURE);
+    }
+    printf("Pacman found !\n");
 //    printf("SDL initialisation\n");
 
 //    SDL_Window *window = 0;
@@ -38,6 +46,7 @@ int main(void)
 
 //    SDL_DestroyWindow(window);
 //    SDL_Quit();
+    freePacman(pacman);
     freeMap(map);
     return EXIT_SUCCESS;
 }
