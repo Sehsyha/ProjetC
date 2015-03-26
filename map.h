@@ -1,11 +1,16 @@
 #ifndef MAP_H
 #define MAP_H
 
+#define MAX_SIZE 100
+
 typedef struct Map Map;
 struct Map
 {
-    int col;
-    int row;
-    int **lines;
+    unsigned int col;
+    unsigned int row;
+    int **cells;
 };
+Map *loadMap(char *path);
+void freeMap(Map *map);
+
 #endif

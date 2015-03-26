@@ -5,7 +5,7 @@
 
 int main(void)
 {
-    Map *map = loadMap();
+    Map *map = loadMap("1.map");
     freeMap(map);
     return EXIT_SUCCESS;
 }
