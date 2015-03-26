@@ -21,6 +21,6 @@ struct Pacman
 
 Pacman *searchAndCreate(Map *map);
 void freePacman(Pacman *pacman);
-int move(Map *map, Pacman *pacman);
+int move(Map *map, Pacman *pacman, int move);
 
 #endif

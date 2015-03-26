@@ -1,10 +1,12 @@
 #include "pacman.h"
 
+void moveCorrect(Map *map, Pacman *pacman, int changeX, int changeY);
+int detectCollision(Map *map, Pacman *pacman, int changeX, int changeY);
+
 Pacman *searchAndCreate(Map *map){
     Pacman *pacman = 0;
     unsigned int i = 0, j = 0;
     int found = 0;
-    printf("%d %d\n", map->row, map->col);
     while(i < map->row && !found){
         j = 0;
         while(j < map->col && !found){
@@ -31,7 +33,43 @@ void freePacman(Pacman *pacman){
     free(pacman);
 }
 
-int move(Map *map, Pacman *pacman){
+int move(Map *map, Pacman *pacman, int move){
+    int correctMove = 1;
+    switch(move){
+        case NORTH:
+            correctMove = detectCollision(map, pacman, 0, -1);
+            break;
+        case SOUTH:
+            correctMove = detectCollision(map, pacman, 0, 1);
+            break;
+        case EAST:
+            correctMove = detectCollision(map, pacman, 1, 0);
+            break;
+        case WEST:
+            correctMove = detectCollision(map, pacman, -1, 0);
+            break;
+    }
 
-    return 0;
+    return correctMove;
+}
+
+void moveCorrect(Map *map, Pacman *pacman, int changeX, int changeY){
+    map->cells[pacman->y][pacman->x] = GUM;
+    pacman->x += changeX;
+    pacman->y += changeY;
+    map->cells[pacman->y][pacman->x] = PAC;
+}
+
+
+int detectCollision(Map *map, Pacman *pacman, int changeX, int changeY){
+    int correctMove = 1;
+    switch(map->cells[pacman->x + changeX][pacman->y + changeY]){
+        case WALL:
+            correctMove = 0;
+            break;
+        case GUM:
+            moveCorrect(map, pacman, changeX, changeY);
+            break;
+    }
+    return correctMove;
 }

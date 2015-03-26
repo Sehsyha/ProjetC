@@ -85,6 +85,16 @@ Map *loadMap(char *path){
     return map;
 }
 
+void printMap(Map *map){
+    unsigned int i = 0, j = 0;
+    for(i = 0 ; i < map->row ; i++){
+        for(j = 0 ; j  < map->col ; j++){
+            printf("%d", map->cells[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 void freeMap(Map *map){
     unsigned int i = 0;
     for(i = 0 ; i < map->row ; i++){

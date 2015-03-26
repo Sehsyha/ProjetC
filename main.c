@@ -14,6 +14,9 @@ int main(void)
         exit(EXIT_FAILURE);
     }
     printf("Pacman found !\n");
+    move(map, pacman, NORTH);
+    printMap(map);
+
 //    printf("SDL initialisation\n");
 
 //    SDL_Window *window = 0;

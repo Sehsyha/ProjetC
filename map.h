@@ -19,6 +19,8 @@ struct Map
     unsigned int row;
     int **cells;
 };
+
+void printMap(Map *map);
 Map *loadMap(char *path);
 void freeMap(Map *map);
 
