@@ -7,7 +7,7 @@
 
 int main(void)
 {
-    Map *map = loadMap("1.map");
+    Map *map = loadMap("../projec/1.map");
     Pacman *pacman = searchAndCreate(map);
     if(!pacman){
         printf("Pacman not found on map\n");
@@ -67,19 +67,19 @@ int main(void)
     SDL_Renderer *renderer = 0;
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     //NEED gerer erreurs
-    SDL_Surface *wallI = IMG_Load("wall.png");
+    SDL_Surface *wallI = IMG_Load("../projec/wall.png");
     SDL_Texture *textureWall = SDL_CreateTextureFromSurface(renderer, wallI);
     SDL_FreeSurface(wallI);
 
-    SDL_Surface *voidI = IMG_Load("void.png");
+    SDL_Surface *voidI = IMG_Load("../projec/void.png");
     SDL_Texture *textureVoid = SDL_CreateTextureFromSurface(renderer, voidI);
     SDL_FreeSurface(voidI);
 
-    SDL_Surface *pacmanI = IMG_Load("pacman.png");
+    SDL_Surface *pacmanI = IMG_Load("../projec/pacman.png");
     SDL_Texture *texturePacman = SDL_CreateTextureFromSurface(renderer, pacmanI);
     SDL_FreeSurface(pacmanI);
 
-    SDL_Surface *gumI = IMG_Load("gum.png");
+    SDL_Surface *gumI = IMG_Load("../projec/gum.png");
     SDL_Texture *textureGum = SDL_CreateTextureFromSurface(renderer, gumI);
     SDL_FreeSurface(gumI);
 
