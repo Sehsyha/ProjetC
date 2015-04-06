@@ -55,35 +55,17 @@ void update(Map *map, Pacman *pacman){
     }
 }
 
+
+
+
+
 /*
  *
- * Function used to print the map and the pacman
+ * Function used to render the pacman
  *
  */
-int render(SDL_Texture *textureVoid, SDL_Texture *textureGum, SDL_Texture *texturePacman, SDL_Texture *texturePacmanN, SDL_Texture *texturePacmanS, SDL_Texture *texturePacmanE, SDL_Texture *texturePacmanW,SDL_Texture *textureWall, SDL_Renderer *renderer, Map *map, Pacman *pacman, int open)
+int renderPacman(SDL_Texture *texturePacman, SDL_Texture *texturePacmanS, SDL_Texture *texturePacmanN, SDL_Texture *texturePacmanW, SDL_Texture *texturePacmanE, Pacman *pacman, int open, SDL_Renderer *renderer)
 {
-    unsigned int i, j;
-    //Clean the view
-    SDL_SetRenderDrawColor(renderer,255,255,255,255);
-    SDL_RenderClear(renderer);
-
-    //Print the map
-    for(i = 0 ; i < map->row ; i++){
-        for(j = 0 ; j < map->col ; j++){
-            SDL_Rect dest = { i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE };
-            switch(map->cells[j][i]){
-                case WALL:
-                    SDL_RenderCopy(renderer, textureWall, NULL, &dest);
-                    break;
-                case GUM:
-                    SDL_RenderCopy(renderer, textureGum, NULL, &dest);
-                    break;
-                case VOID:
-                    SDL_RenderCopy(renderer, textureVoid, NULL, &dest);
-                    break;
-            }
-        }
-    }
     SDL_Rect dest = {pacman->x, pacman->y, TILE_SIZE, TILE_SIZE};
     if(open >= 0){
         switch(pacman->direction){
@@ -112,9 +94,38 @@ int render(SDL_Texture *textureVoid, SDL_Texture *textureGum, SDL_Texture *textu
          SDL_RenderCopy(renderer, texturePacman, NULL, &dest);
          open++;
     }
-
-    SDL_RenderPresent(renderer);
     return open;
+}
+
+/*
+ *
+ * Function used to print the map and the pacman
+ *
+ */
+void render(SDL_Texture *textureVoid, SDL_Texture *textureGum, SDL_Texture *textureWall, SDL_Renderer *renderer, Map *map)
+{
+    unsigned int i, j;
+    //Clean the view
+    SDL_SetRenderDrawColor(renderer,255,255,255,255);
+    SDL_RenderClear(renderer);
+
+    //Print the map
+    for(i = 0 ; i < map->row ; i++){
+        for(j = 0 ; j < map->col ; j++){
+            SDL_Rect dest = { i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE };
+            switch(map->cells[j][i]){
+                case WALL:
+                    SDL_RenderCopy(renderer, textureWall, NULL, &dest);
+                    break;
+                case GUM:
+                    SDL_RenderCopy(renderer, textureGum, NULL, &dest);
+                    break;
+                case VOID:
+                    SDL_RenderCopy(renderer, textureVoid, NULL, &dest);
+                    break;
+            }
+        }
+    }
 }
 
 /*
@@ -169,7 +180,7 @@ int main(void)
     //NEED gerer erreurs
 
     //Create the textures of all the sprites we need
-    SDL_Surface *wallI = IMG_Load("../projec/wall.png");
+    SDL_Surface *wallI = IMG_Load("../projec/wallV.png");
     SDL_Texture *textureWall = SDL_CreateTextureFromSurface(renderer, wallI);
     SDL_FreeSurface(wallI);
 
@@ -205,7 +216,9 @@ int main(void)
     int open = 0;
     //Infinite loop until we want to stop the game
     while(!terminate){
-        open = render(textureVoid, textureGum, texturePacman, texturePacmanN, texturePacmanS, texturePacmanE, texturePacmanW, textureWall, renderer, map, pacman, open);
+        render(textureVoid, textureGum, textureWall, renderer, map);
+        open = renderPacman(texturePacman, texturePacmanS, texturePacmanN, texturePacmanW, texturePacmanE, pacman, open, renderer);
+        SDL_RenderPresent(renderer);
         //Event handling
         SDL_PollEvent(&event);
         if(event.window.event == SDL_WINDOWEVENT_CLOSE){
