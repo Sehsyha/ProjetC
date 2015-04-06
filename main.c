@@ -15,16 +15,36 @@
 void update(Map *map, Pacman *pacman){
     switch(pacman->direction){
         case NORTH:
-            pacman->y -= SPEED;
+            if(testCollision(map, pacman->x, pacman->y - SPEED) != WALL){
+                pacman->y -= SPEED;
+            }else{
+                pacman->direction = pacman->futureDirection;
+                pacman->futureDirection = STATIC;
+            }
             break;
         case SOUTH:
-            pacman->y += SPEED;
+            if(testCollision(map, pacman->x, pacman->y + SPEED + TILE_SIZE - 1) != WALL){
+                pacman->y += SPEED;
+            }else{
+                pacman->direction = pacman->futureDirection;
+                pacman->futureDirection = STATIC;
+            }
             break;
         case EAST:
-            pacman->x += SPEED;
+            if(testCollision(map, pacman->x + SPEED + TILE_SIZE - 1, pacman->y) != WALL){
+                pacman->x += SPEED;
+            }else{
+                pacman->direction = pacman->futureDirection;
+                pacman->futureDirection = STATIC;
+            }
             break;
         case WEST:
-            pacman->x -= SPEED;
+            if(testCollision(map, pacman->x - SPEED, pacman->y) != WALL){
+                pacman->x -= SPEED;
+            }else{
+                pacman->direction = pacman->futureDirection;
+                pacman->futureDirection = STATIC;
+            }
             break;
     }
 }
@@ -32,12 +52,6 @@ void update(Map *map, Pacman *pacman){
 /*
  *
  * Function used to print the map and the pacman
- *
- */
-
-/*
- *
- * Main function
  *
  */
 void render(SDL_Texture *textureVoid, SDL_Texture *textureGum, SDL_Texture *texturePacman, SDL_Texture *textureWall, SDL_Renderer *renderer, Map *map, Pacman *pacman)
@@ -69,6 +83,11 @@ void render(SDL_Texture *textureVoid, SDL_Texture *textureGum, SDL_Texture *text
     SDL_RenderPresent(renderer);
 }
 
+/*
+ *
+ * Main function
+ *
+ */
 int main(void)
 {
     //Load the map
@@ -145,16 +164,16 @@ int main(void)
             case SDL_KEYDOWN:
                 switch(event.key.keysym.scancode){
                     case SDL_SCANCODE_UP:
-                        setDirection(pacman, NORTH);
+                        setDirection(map, pacman, NORTH);
                         break;
                     case SDL_SCANCODE_DOWN:
-                        setDirection(pacman, SOUTH);
+                        setDirection(map, pacman, SOUTH);
                         break;
                     case SDL_SCANCODE_RIGHT:
-                        setDirection(pacman, EAST);
+                        setDirection(map, pacman, EAST);
                         break;
                     case SDL_SCANCODE_LEFT:
-                        setDirection(pacman, WEST);
+                        setDirection(map, pacman, WEST);
                         break;
                     default:
                         break;

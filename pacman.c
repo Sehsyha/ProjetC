@@ -40,10 +40,37 @@ Pacman *searchAndCreate(Map *map){
  * Function used to set the direction or the future direction of the pacman
  *
  */
-void setDirection(Pacman *pacman, unsigned int direction){
+void setDirection(Map *map, Pacman *pacman, unsigned int direction){
     if(pacman->direction == STATIC){
         pacman->direction = direction;
     }else{
+        switch(direction){
+            case NORTH:
+                if(testCollision(map, pacman->x, pacman->y - SPEED) != WALL){
+                    pacman->direction = direction;
+                    pacman->futureDirection = STATIC;
+                }
+                break;
+            case SOUTH:
+                if(testCollision(map, pacman->x, pacman->y + SPEED + TILE_SIZE - 1) != WALL){
+                    pacman->direction = direction;
+                    pacman->futureDirection = STATIC;
+                }
+                break;
+            case EAST:
+                if(testCollision(map, pacman->x + SPEED + TILE_SIZE - 1, pacman->y) != WALL){
+                    pacman->direction = direction;
+                    pacman->futureDirection = STATIC;
+                }
+                break;
+            case WEST:
+                if(testCollision(map, pacman->x - SPEED, pacman->y) != WALL){
+                    pacman->direction = direction;
+                    pacman->futureDirection = STATIC;
+                }
+                break;
+        }
+
         pacman->futureDirection = direction;
     }
 }

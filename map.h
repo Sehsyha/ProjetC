@@ -25,5 +25,6 @@ struct Map
 void printMap(Map *map);
 Map *loadMap(char *path);
 void freeMap(Map *map);
+char testCollision(Map *map, unsigned int newX, unsigned int newY);
 
 #endif

@@ -114,6 +114,25 @@ void printMap(Map *map){
 
 /*
  *
+ * Function used to test the collision of an object, depending on the position and its speed and direction
+ * Return 0 if the object can't pass
+ * Return the type of the object touched either
+ *
+ */
+char testCollision(Map *map, unsigned int newX, unsigned int newY){
+    char result = '1';
+    int xMap = newX / TILE_SIZE;
+    int yMap = newY / TILE_SIZE;
+    switch(map->cells[yMap][xMap]){
+        default:
+            result = map->cells[yMap][xMap];
+            break;
+    }
+    return result;
+}
+
+/*
+ *
  * Function used to free the elements of a map
  *
  */

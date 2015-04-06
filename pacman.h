@@ -25,5 +25,5 @@ struct Pacman
 
 Pacman *searchAndCreate(Map *map);
 void freePacman(Pacman *pacman);
-void setDirection(Pacman *pacman, unsigned int direction);
+void setDirection(Map *map, Pacman *pacman, unsigned int direction);
 #endif
