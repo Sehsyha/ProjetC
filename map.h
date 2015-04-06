@@ -12,6 +12,7 @@
 #define EAST 1
 #define SOUTH 2
 #define WEST 3
+#define STATIC 4
 
 typedef struct Map Map;
 struct Map

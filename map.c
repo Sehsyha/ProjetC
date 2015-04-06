@@ -5,7 +5,7 @@
 
 
 Map *loadMap(char *path){
-    //Décclaration des variables
+    //Déclaration des variables
     unsigned int row = 0;
     unsigned int col = 0;
     unsigned int i = 0;

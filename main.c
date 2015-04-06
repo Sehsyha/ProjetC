@@ -5,6 +5,25 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
+#define FPS 60
+
+void update(Map *map, Pacman *pacman){
+    switch(pacman->direction){
+        case NORTH:
+            pacman->y -= SPEED;
+            break;
+        case SOUTH:
+            pacman->y += SPEED;
+            break;
+        case EAST:
+            pacman->x += SPEED;
+            break;
+        case WEST:
+            pacman->x -= SPEED;
+            break;
+    }
+}
+
 int main(void)
 {
     Map *map = loadMap("../projec/1.map");
@@ -15,32 +34,6 @@ int main(void)
         exit(EXIT_FAILURE);
     }
     printf("Pacman found !\n");
-//    printMap(map);
-//    int continuer = 1;
-//    char input;
-//    while(continuer){
-//        scanf(" %c", &input);
-//        switch(input){
-//            case 'q':
-//                continuer = 0;
-//                break;
-//            case 'n':
-//                move(map, pacman, NORTH);
-//                break;
-//            case 'e':
-//                move(map, pacman, EAST);
-//                break;
-//            case 's':
-//                move(map, pacman, SOUTH);
-//                break;
-//            case 'w':
-//                move(map, pacman, WEST);
-//                break;
-//        }
-//        printf("X : %d, Y : %d, points : %d\n", pacman->x, pacman->y, pacman->point);
-//        printMap(map);
-//    }
-
     printf("SDL initialisation\n");
 
     SDL_Window *window = 0;
@@ -85,6 +78,8 @@ int main(void)
 
     unsigned int i = 0, j = 0;
     while(!terminate){
+        SDL_SetRenderDrawColor(renderer,255,255,255,255);
+        SDL_RenderClear(renderer);
         for(i = 0 ; i < map->row ; i++){
             for(j = 0 ; j < map->col ; j++){
                 SDL_Rect dest = { i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE };
@@ -98,14 +93,13 @@ int main(void)
                     case VOID:
                         SDL_RenderCopy(renderer, textureVoid, NULL, &dest);
                         break;
-                    case PAC:
-                        SDL_RenderCopy(renderer, texturePacman, NULL, &dest);
-                        break;
                 }
             }
         }
+        SDL_Rect dest = {pacman->x, pacman->y, TILE_SIZE, TILE_SIZE};
+        SDL_RenderCopy(renderer, texturePacman, NULL, &dest);
         SDL_RenderPresent(renderer);
-        SDL_WaitEvent(&event);
+        SDL_PollEvent(&event);
         if(event.window.event == SDL_WINDOWEVENT_CLOSE){
             terminate = 1;
         }
@@ -113,26 +107,29 @@ int main(void)
             case SDL_KEYDOWN:
                 switch(event.key.keysym.scancode){
                     case SDL_SCANCODE_UP:
-                        move(map, pacman, NORTH);
+                        setDirection(pacman, NORTH);
                         break;
                     case SDL_SCANCODE_DOWN:
-                        move(map, pacman, SOUTH);
+                        setDirection(pacman, SOUTH);
                         break;
                     case SDL_SCANCODE_RIGHT:
-                        move(map, pacman, EAST);
+                        setDirection(pacman, EAST);
                         break;
                     case SDL_SCANCODE_LEFT:
-                        move(map, pacman, WEST);
+                        setDirection(pacman, WEST);
                         break;
                     default:
                         break;
                 }
-
                 break;
         }
+        update(map, pacman);
+        SDL_Delay(1000 / FPS);
     }
     SDL_DestroyTexture(textureWall);
     SDL_DestroyTexture(textureVoid);
+    SDL_DestroyTexture(textureGum);
+    SDL_DestroyTexture(texturePacman);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

@@ -1,8 +1,5 @@
 #include "pacman.h"
 
-void moveCorrect(Map *map, Pacman *pacman, int changeX, int changeY);
-int detectCollision(Map *map, Pacman *pacman, int changeX, int changeY);
-
 Pacman *searchAndCreate(Map *map){
     Pacman *pacman = 0;
     unsigned int i = 0, j = 0;
@@ -20,58 +17,27 @@ Pacman *searchAndCreate(Map *map){
     j--;
     i--;
     if(found){
+        //Remove the pacman from the map
+        map->cells[i][j] = VOID;
         pacman = malloc(sizeof(Pacman));
-        pacman->x = j;
-        pacman->y = i;
+        pacman->x = j * TILE_SIZE;
+        pacman->y = i * TILE_SIZE;
+        pacman->direction = STATIC;
+        pacman->futureDirection = STATIC;
         pacman->life = START_LIFE;
         pacman->point = 0;
     }
     return pacman;
 }
 
+void setDirection(Pacman *pacman, unsigned int direction){
+    if(pacman->direction == STATIC){
+        pacman->direction = direction;
+    }else{
+        pacman->futureDirection = direction;
+    }
+}
+
 void freePacman(Pacman *pacman){
     free(pacman);
-}
-
-int move(Map *map, Pacman *pacman, int move){
-    int correctMove = 1;
-    switch(move){
-        case NORTH:
-            correctMove = detectCollision(map, pacman, 0, -1);
-            break;
-        case SOUTH:
-            correctMove = detectCollision(map, pacman, 0, 1);
-            break;
-        case EAST:
-            correctMove = detectCollision(map, pacman, 1, 0);
-            break;
-        case WEST:
-            correctMove = detectCollision(map, pacman, -1, 0);
-            break;
-    }
-
-    return correctMove;
-}
-
-void moveCorrect(Map *map, Pacman *pacman, int changeX, int changeY){
-    map->cells[pacman->y][pacman->x] = VOID;
-    pacman->x += changeX;
-    pacman->y += changeY;
-    map->cells[pacman->y][pacman->x] = PAC;
-}
-
-
-int detectCollision(Map *map, Pacman *pacman, int changeX, int changeY){
-    int correctMove = 1;
-    switch(map->cells[pacman->y + changeY][pacman->x + changeX]){
-        case WALL:
-            correctMove = 0;
-            break;
-        case GUM:
-            pacman->point += 1;
-        case VOID:
-            moveCorrect(map, pacman, changeX, changeY);
-            break;
-    }
-    return correctMove;
 }
