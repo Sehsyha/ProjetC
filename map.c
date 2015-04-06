@@ -3,9 +3,13 @@
 #include <stdio.h>
 #include <string.h>
 
-
+/*
+ *
+ * Function used to load a map with a file
+ *
+ */
 Map *loadMap(char *path){
-    //Déclaration des variables
+    //Initialisations
     unsigned int row = 0;
     unsigned int col = 0;
     unsigned int i = 0;
@@ -15,11 +19,14 @@ Map *loadMap(char *path){
     char line[MAX_SIZE];
     printf("Loading %s file\n", path);
 
+    //Open the file
     file = fopen(path, "r");
     if(file == NULL){
         printf("File not found : %s\n", path);
         exit(EXIT_FAILURE);
     }
+
+    //Get the number of rows
     fgets(line, MAX_SIZE, file);
     row = atoi(line);
     if(row < 1){
@@ -33,6 +40,7 @@ Map *loadMap(char *path){
         exit(EXIT_FAILURE);
     }
 
+    //Get the number of columns
     fgets(line, MAX_SIZE, file);
     col = atoi(line);
     if(row < 1){
@@ -46,14 +54,18 @@ Map *loadMap(char *path){
         exit(EXIT_FAILURE);
     }
 
+    //Alloc the two-dimension array
     map = malloc(sizeof(Map));
     if(map == NULL){
         printf("Error during map allocation\n");
         fclose(file);
         exit(EXIT_FAILURE);
     }
+
     map->row = row;
     map->col = col;
+
+    //Create all the cells of the map
     map->cells = malloc(row * sizeof(int*));
     for(i = 0 ; i < map->row ; i++){
         map->cells[i] = malloc(map->col * sizeof(int));
@@ -85,6 +97,11 @@ Map *loadMap(char *path){
     return map;
 }
 
+/*
+ *
+ * Function used to print the map in a text way
+ *
+ */
 void printMap(Map *map){
     unsigned int i = 0, j = 0;
     for(i = 0 ; i < map->row ; i++){
@@ -95,6 +112,11 @@ void printMap(Map *map){
     }
 }
 
+/*
+ *
+ * Function used to free the elements of a map
+ *
+ */
 void freeMap(Map *map){
     unsigned int i = 0;
     for(i = 0 ; i < map->row ; i++){

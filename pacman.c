@@ -1,5 +1,10 @@
 #include "pacman.h"
 
+/*
+ *
+ * Function used to search the pacman in a map and create the object
+ *
+ */
 Pacman *searchAndCreate(Map *map){
     Pacman *pacman = 0;
     unsigned int i = 0, j = 0;
@@ -30,6 +35,11 @@ Pacman *searchAndCreate(Map *map){
     return pacman;
 }
 
+/*
+ *
+ * Function used to set the direction or the future direction of the pacman
+ *
+ */
 void setDirection(Pacman *pacman, unsigned int direction){
     if(pacman->direction == STATIC){
         pacman->direction = direction;
@@ -38,6 +48,11 @@ void setDirection(Pacman *pacman, unsigned int direction){
     }
 }
 
+/*
+ *
+ * Free the pacman object
+ *
+ */
 void freePacman(Pacman *pacman){
     free(pacman);
 }
