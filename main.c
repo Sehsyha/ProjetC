@@ -55,7 +55,7 @@ void update(Map *map, Pacman *pacman){
  * Function used to print the map and the pacman
  *
  */
-void render(SDL_Texture *textureVoid, SDL_Texture *textureGum, SDL_Texture *texturePacman, SDL_Texture *textureWall, SDL_Renderer *renderer, Map *map, Pacman *pacman)
+int render(SDL_Texture *textureVoid, SDL_Texture *textureGum, SDL_Texture *texturePacman, SDL_Texture *texturePacmanN, SDL_Texture *texturePacmanS, SDL_Texture *texturePacmanE, SDL_Texture *texturePacmanW,SDL_Texture *textureWall, SDL_Renderer *renderer, Map *map, Pacman *pacman, int open)
 {
     unsigned int i, j;
     //Clean the view
@@ -80,8 +80,36 @@ void render(SDL_Texture *textureVoid, SDL_Texture *textureGum, SDL_Texture *text
         }
     }
     SDL_Rect dest = {pacman->x, pacman->y, TILE_SIZE, TILE_SIZE};
-    SDL_RenderCopy(renderer, texturePacman, NULL, &dest);
+    if(open >= 0){
+        switch(pacman->direction){
+            case NORTH:
+                SDL_RenderCopy(renderer, texturePacmanN, NULL, &dest);
+                break;
+            case SOUTH:
+                SDL_RenderCopy(renderer, texturePacmanS, NULL, &dest);
+                break;
+            case EAST:
+                SDL_RenderCopy(renderer, texturePacmanE, NULL, &dest);
+                break;
+            case WEST:
+                SDL_RenderCopy(renderer, texturePacmanW, NULL, &dest);
+                break;
+            case STATIC:
+                SDL_RenderCopy(renderer, texturePacman, NULL, &dest);
+                break;
+        }
+        open++;
+        if(open >= FPS / (FPS / 10)){
+            open = -FPS / (FPS / 10);
+        }
+    }else{
+
+         SDL_RenderCopy(renderer, texturePacman, NULL, &dest);
+         open++;
+    }
+
     SDL_RenderPresent(renderer);
+    return open;
 }
 
 /*
@@ -148,14 +176,31 @@ int main(void)
     SDL_Texture *texturePacman = SDL_CreateTextureFromSurface(renderer, pacmanI);
     SDL_FreeSurface(pacmanI);
 
+    SDL_Surface *pacmanN = IMG_Load("../projec/pacmanN.png");
+    SDL_Texture *texturePacmanN = SDL_CreateTextureFromSurface(renderer, pacmanN);
+    SDL_FreeSurface(pacmanN);
+
+    SDL_Surface *pacmanE = IMG_Load("../projec/pacmanE.png");
+    SDL_Texture *texturePacmanE = SDL_CreateTextureFromSurface(renderer, pacmanE);
+    SDL_FreeSurface(pacmanE);
+
+    SDL_Surface *pacmanS = IMG_Load("../projec/pacmanS.png");
+    SDL_Texture *texturePacmanS = SDL_CreateTextureFromSurface(renderer, pacmanS);
+    SDL_FreeSurface(pacmanS);
+
+    SDL_Surface *pacmanW = IMG_Load("../projec/pacmanW.png");
+    SDL_Texture *texturePacmanW = SDL_CreateTextureFromSurface(renderer, pacmanW);
+    SDL_FreeSurface(pacmanW);
+
     SDL_Surface *gumI = IMG_Load("../projec/gum.png");
     SDL_Texture *textureGum = SDL_CreateTextureFromSurface(renderer, gumI);
     SDL_FreeSurface(gumI);
 
+
+    int open = 0;
     //Infinite loop until we want to stop the game
     while(!terminate){
-        render(textureVoid, textureGum, texturePacman, textureWall, renderer, map, pacman);
-
+        open = render(textureVoid, textureGum, texturePacman, texturePacmanN, texturePacmanS, texturePacmanE, texturePacmanW, textureWall, renderer, map, pacman, open);
         //Event handling
         SDL_PollEvent(&event);
         if(event.window.event == SDL_WINDOWEVENT_CLOSE){
@@ -190,6 +235,10 @@ int main(void)
     SDL_DestroyTexture(textureVoid);
     SDL_DestroyTexture(textureGum);
     SDL_DestroyTexture(texturePacman);
+    SDL_DestroyTexture(texturePacmanN);
+    SDL_DestroyTexture(texturePacmanE);
+    SDL_DestroyTexture(texturePacmanS);
+    SDL_DestroyTexture(texturePacmanW);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
