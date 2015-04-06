@@ -70,6 +70,8 @@ void setDirection(Map *map, Pacman *pacman, unsigned int direction){
                 }
                 break;
         }
+    }else{
+        pacman->futureDirection = direction;
     }
 }
 

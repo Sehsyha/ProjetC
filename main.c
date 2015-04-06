@@ -13,17 +13,19 @@
  *
  */
 void update(Map *map, Pacman *pacman){
+    int result = 0;
     switch(pacman->direction){
         case NORTH:
-            if(testCollision(map, pacman->x, pacman->y - SPEED) != WALL){
+            if((result = testCollision(map, pacman->x, pacman->y - SPEED)) != WALL){
                 pacman->y -= SPEED;
+
             }else{
                 pacman->direction = pacman->futureDirection;
                 pacman->futureDirection = STATIC;
             }
             break;
         case SOUTH:
-            if(testCollision(map, pacman->x, pacman->y + SPEED + TILE_SIZE - 1) != WALL){
+            if((result = testCollision(map, pacman->x, pacman->y + SPEED + TILE_SIZE - 1)) != WALL){
                 pacman->y += SPEED;
             }else{
                 pacman->direction = pacman->futureDirection;
@@ -31,7 +33,7 @@ void update(Map *map, Pacman *pacman){
             }
             break;
         case EAST:
-            if(testCollision(map, pacman->x + SPEED + TILE_SIZE - 1, pacman->y) != WALL){
+            if((result = testCollision(map, pacman->x + SPEED + TILE_SIZE - 1, pacman->y)) != WALL){
                 pacman->x += SPEED;
             }else{
                 pacman->direction = pacman->futureDirection;
@@ -39,7 +41,7 @@ void update(Map *map, Pacman *pacman){
             }
             break;
         case WEST:
-            if(testCollision(map, pacman->x - SPEED, pacman->y) != WALL){
+            if((result = testCollision(map, pacman->x - SPEED, pacman->y)) != WALL){
                 pacman->x -= SPEED;
             }else{
                 pacman->direction = pacman->futureDirection;
@@ -47,7 +49,10 @@ void update(Map *map, Pacman *pacman){
             }
             break;
     }
-    printf("X : %d , Y : %d\n", pacman->x, pacman->y);
+    if(result == GUM){
+        map->cells[pacman->y / TILE_SIZE][pacman->x / TILE_SIZE] = VOID;
+        pacman->point++;
+    }
 }
 
 /*
