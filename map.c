@@ -121,8 +121,8 @@ void printMap(Map *map){
  */
 char testCollision(Map *map, unsigned int newX, unsigned int newY){
     char result = '1';
-    int xMap = newX / TILE_SIZE;
-    int yMap = newY / TILE_SIZE;
+    int xMap = round(newX / TILE_SIZE);
+    int yMap = round(newY / TILE_SIZE);
     switch(map->cells[yMap][xMap]){
         default:
             result = map->cells[yMap][xMap];

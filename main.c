@@ -47,6 +47,7 @@ void update(Map *map, Pacman *pacman){
             }
             break;
     }
+    printf("X : %d , Y : %d\n", pacman->x, pacman->y);
 }
 
 /*

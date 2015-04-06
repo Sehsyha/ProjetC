@@ -43,7 +43,7 @@ Pacman *searchAndCreate(Map *map){
 void setDirection(Map *map, Pacman *pacman, unsigned int direction){
     if(pacman->direction == STATIC){
         pacman->direction = direction;
-    }else{
+    }else if(pacman->x % TILE_SIZE == 0 && pacman->y % TILE_SIZE == 0){
         switch(direction){
             case NORTH:
                 if(testCollision(map, pacman->x, pacman->y - SPEED) != WALL){
@@ -70,8 +70,6 @@ void setDirection(Map *map, Pacman *pacman, unsigned int direction){
                 }
                 break;
         }
-
-        pacman->futureDirection = direction;
     }
 }
 
