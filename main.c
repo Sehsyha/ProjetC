@@ -102,7 +102,7 @@ int renderPacman(SDL_Texture *texturePacman, SDL_Texture *texturePacmanS, SDL_Te
  * Function used to print the map and the pacman
  *
  */
-void render(SDL_Texture *textureVoid, SDL_Texture *textureGum, SDL_Texture *textureWall, SDL_Renderer *renderer, Map *map)
+void render(SDL_Texture *textureVoid, SDL_Texture *textureGum, SDL_Texture *textureWallH, SDL_Texture *textureWallV, SDL_Texture *textureWallNE, SDL_Texture *textureWallNW, SDL_Texture *textureWallSE, SDL_Texture *textureWallSW, SDL_Renderer *renderer, Map *map)
 {
     unsigned int i, j;
     //Clean the view
@@ -115,7 +115,48 @@ void render(SDL_Texture *textureVoid, SDL_Texture *textureGum, SDL_Texture *text
             SDL_Rect dest = { i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE };
             switch(map->cells[j][i]){
                 case WALL:
-                    SDL_RenderCopy(renderer, textureWall, NULL, &dest);
+                    if(j > 0 && i > 0 && j < map->col - 1 && i < map->row - 1){
+//                        printf("%d %d\n", j, i);
+                        if(map->cells[j - 1][i] == WALL && map->cells[j + 1][i] == WALL){
+                            SDL_RenderCopy(renderer, textureWallV, NULL, &dest);
+                        }else if(map->cells[j][i - 1] == WALL && map->cells[j][i + 1] == WALL){
+                            SDL_RenderCopy(renderer, textureWallH, NULL, &dest);
+                        }else if(map->cells[j][i + 1] == WALL && map->cells[j + 1][i] == WALL){
+                            SDL_RenderCopy(renderer, textureWallNW, NULL, &dest);
+                        }else if(map->cells[j][i + 1] == WALL && map->cells[j - 1][i] == WALL){
+                            SDL_RenderCopy(renderer, textureWallSW, NULL, &dest);
+                        }else if(map->cells[j][i - 1] == WALL && map->cells[j + 1][i] == WALL){
+                            SDL_RenderCopy(renderer, textureWallNE, NULL, &dest);
+                        }else if(map->cells[j][i - 1] == WALL && map->cells[j - 1][i] == WALL){
+                            SDL_RenderCopy(renderer, textureWallSE, NULL, &dest);
+                        }
+                    }else{
+                        if(i == 0 && j == 0){
+                            SDL_RenderCopy(renderer, textureWallNW, NULL, &dest);
+                        }else if(i == 0 && j == map->row - 1){
+                            SDL_RenderCopy(renderer, textureWallSW, NULL, &dest);
+                        }else if(i == map->col - 1 && j == 0){
+                            SDL_RenderCopy(renderer, textureWallNE, NULL, &dest);
+                        }else if(i == map->col - 1 && j == map->row - 1){
+                            SDL_RenderCopy(renderer, textureWallSE, NULL, &dest);
+                        }else if(i == 0){
+                            if(map->cells[j + 1][i] == WALL && map->cells[j - 1][i] == WALL){
+                                SDL_RenderCopy(renderer, textureWallV, NULL, &dest);
+                            }
+                        }else if(j == 0){
+                            if(map->cells[j][i + 1] == WALL && map->cells[j][i - 1] == WALL){
+                                SDL_RenderCopy(renderer, textureWallH, NULL, &dest);
+                            }
+                        }else if(i == map->col - 1){
+                            if(map->cells[j + 1][i] == WALL && map->cells[j - 1][i] == WALL){
+                                SDL_RenderCopy(renderer, textureWallV, NULL, &dest);
+                            }
+                        }else if(j == map->row - 1){
+                            if(map->cells[j][i + 1] == WALL && map->cells[j][i - 1] == WALL){
+                                SDL_RenderCopy(renderer, textureWallH, NULL, &dest);
+                            }
+                        }
+                    }
                     break;
                 case GUM:
                     SDL_RenderCopy(renderer, textureGum, NULL, &dest);
@@ -180,9 +221,29 @@ int main(void)
     //NEED gerer erreurs
 
     //Create the textures of all the sprites we need
-    SDL_Surface *wallI = IMG_Load("../projec/wallV.png");
-    SDL_Texture *textureWall = SDL_CreateTextureFromSurface(renderer, wallI);
-    SDL_FreeSurface(wallI);
+    SDL_Surface *wallV = IMG_Load("../projec/wallV.png");
+    SDL_Texture *textureWallV = SDL_CreateTextureFromSurface(renderer, wallV);
+    SDL_FreeSurface(wallV);
+
+    SDL_Surface *wallH = IMG_Load("../projec/wallH.png");
+    SDL_Texture *textureWallH = SDL_CreateTextureFromSurface(renderer, wallH);
+    SDL_FreeSurface(wallH);
+
+    SDL_Surface *wallNW = IMG_Load("../projec/wallNW.png");
+    SDL_Texture *textureWallNW = SDL_CreateTextureFromSurface(renderer, wallNW);
+    SDL_FreeSurface(wallNW);
+
+    SDL_Surface *wallNE = IMG_Load("../projec/wallNE.png");
+    SDL_Texture *textureWallNE = SDL_CreateTextureFromSurface(renderer, wallNE);
+    SDL_FreeSurface(wallNE);
+
+    SDL_Surface *wallSW = IMG_Load("../projec/wallSW.png");
+    SDL_Texture *textureWallSW = SDL_CreateTextureFromSurface(renderer, wallSW);
+    SDL_FreeSurface(wallSW);
+
+    SDL_Surface *wallSE = IMG_Load("../projec/wallSE.png");
+    SDL_Texture *textureWallSE = SDL_CreateTextureFromSurface(renderer, wallSE);
+    SDL_FreeSurface(wallSE);
 
     SDL_Surface *voidI = IMG_Load("../projec/void.png");
     SDL_Texture *textureVoid = SDL_CreateTextureFromSurface(renderer, voidI);
@@ -216,7 +277,7 @@ int main(void)
     int open = 0;
     //Infinite loop until we want to stop the game
     while(!terminate){
-        render(textureVoid, textureGum, textureWall, renderer, map);
+        render(textureVoid, textureGum, textureWallH, textureWallV, textureWallNE, textureWallNW, textureWallSE, textureWallSW, renderer, map);
         open = renderPacman(texturePacman, texturePacmanS, texturePacmanN, texturePacmanW, texturePacmanE, pacman, open, renderer);
         SDL_RenderPresent(renderer);
         //Event handling
@@ -249,7 +310,12 @@ int main(void)
     }
 
     //Free all the objects we don't need anymore
-    SDL_DestroyTexture(textureWall);
+    SDL_DestroyTexture(textureWallV);
+    SDL_DestroyTexture(textureWallH);
+    SDL_DestroyTexture(textureWallNE);
+    SDL_DestroyTexture(textureWallNW);
+    SDL_DestroyTexture(textureWallSE);
+    SDL_DestroyTexture(textureWallSW);
     SDL_DestroyTexture(textureVoid);
     SDL_DestroyTexture(textureGum);
     SDL_DestroyTexture(texturePacman);
