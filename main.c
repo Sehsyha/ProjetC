@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "map.h"
 #include "pacman.h"
+#include "ghost.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
@@ -12,8 +13,12 @@
  * Function used to update the map with the move of the pacman
  *
  */
-void update(Map *map, Pacman *pacman){
+void update(Map *map, Pacman *pacman, Ghost *clyde){
     int result = 0;
+    if(clyde->direction == EAST){
+        clyde->x += SPEED;
+
+    }
     switch(pacman->direction){
         case NORTH:
             if((result = testCollision(map, pacman->x, pacman->y - SPEED)) != WALL){
@@ -56,9 +61,6 @@ void update(Map *map, Pacman *pacman){
 }
 
 
-
-
-
 /*
  *
  * Function used to render the pacman
@@ -95,6 +97,11 @@ int renderPacman(SDL_Texture *texturePacman, SDL_Texture *texturePacmanS, SDL_Te
          open++;
     }
     return open;
+}
+
+void renderClyde(SDL_Texture *textureClyde, Ghost *clyde, SDL_Renderer *renderer){
+    SDL_Rect dest = {clyde->x, clyde->y, TILE_SIZE, TILE_SIZE};
+    SDL_RenderCopy(renderer, textureClyde, NULL, &dest);
 }
 
 /*
@@ -161,6 +168,7 @@ void render(SDL_Texture *textureVoid, SDL_Texture *textureGum, SDL_Texture *text
                 case GUM:
                     SDL_RenderCopy(renderer, textureGum, NULL, &dest);
                     break;
+                default:
                 case VOID:
                     SDL_RenderCopy(renderer, textureVoid, NULL, &dest);
                     break;
@@ -180,7 +188,8 @@ int main(void)
     Map *map = loadMap("../projec/1.map");
 
     //Search the pacman on the map and create him
-    Pacman *pacman = searchAndCreate(map);
+    Pacman *pacman = searchAndCreatePacman(map);
+
 
     //If the pacman is not found
     if(!pacman){
@@ -189,6 +198,14 @@ int main(void)
         exit(EXIT_FAILURE);
     }
     printf("Pacman found !\n");
+
+    Ghost *clyde = searchAndCreateGhost(map, CLYDE);
+    if(!clyde){
+        printf("Clyde not found on map\n");
+        freeMap(map);
+        exit(EXIT_FAILURE);
+    }
+    printf("Clyde found !\n");
     printf("SDL initialisation\n");
 
     //Create SDL objects
@@ -273,12 +290,18 @@ int main(void)
     SDL_Texture *textureGum = SDL_CreateTextureFromSurface(renderer, gumI);
     SDL_FreeSurface(gumI);
 
+    SDL_Surface *clydeI = IMG_Load("../projec/clyde.png");
+    SDL_Texture *textureClyde = SDL_CreateTextureFromSurface(renderer, clydeI);
+    SDL_FreeSurface(clydeI);
+
 
     int open = 0;
     //Infinite loop until we want to stop the game
     while(!terminate){
         render(textureVoid, textureGum, textureWallH, textureWallV, textureWallNE, textureWallNW, textureWallSE, textureWallSW, renderer, map);
         open = renderPacman(texturePacman, texturePacmanS, texturePacmanN, texturePacmanW, texturePacmanE, pacman, open, renderer);
+        renderClyde(textureClyde, clyde, renderer);
+        changeDirectionGhost(map, clyde);
         SDL_RenderPresent(renderer);
         //Event handling
         SDL_PollEvent(&event);
@@ -305,7 +328,7 @@ int main(void)
                 }
                 break;
         }
-        update(map, pacman);
+        update(map, pacman, clyde);
         SDL_Delay(1000 / FPS);
     }
 
@@ -316,6 +339,7 @@ int main(void)
     SDL_DestroyTexture(textureWallNW);
     SDL_DestroyTexture(textureWallSE);
     SDL_DestroyTexture(textureWallSW);
+    SDL_DestroyTexture(textureClyde);
     SDL_DestroyTexture(textureVoid);
     SDL_DestroyTexture(textureGum);
     SDL_DestroyTexture(texturePacman);

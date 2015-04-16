@@ -7,6 +7,7 @@
 #define WALL '1'
 #define PAC '2'
 #define VOID '0'
+#define CLYDE 'C'
 
 #define NORTH 0
 #define EAST 1

@@ -23,7 +23,7 @@ struct Pacman
     unsigned int futureDirection;
 };
 
-Pacman *searchAndCreate(Map *map);
+Pacman *searchAndCreatePacman(Map *map);
 void freePacman(Pacman *pacman);
 void setDirection(Map *map, Pacman *pacman, unsigned int direction);
 #endif

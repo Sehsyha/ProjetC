@@ -5,7 +5,7 @@
  * Function used to search the pacman in a map and create the object
  *
  */
-Pacman *searchAndCreate(Map *map){
+Pacman *searchAndCreatePacman(Map *map){
     Pacman *pacman = 0;
     unsigned int i = 0, j = 0;
     int found = 0;
