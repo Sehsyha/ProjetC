@@ -1,5 +1,5 @@
 #ifndef PACMAN_H
-#define PACMAN
+#define PACMAN_H
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -23,7 +23,7 @@ struct Pacman
     unsigned int futureDirection;
 };
 
-Pacman *searchAndCreatePacman(Map *map);
-void freePacman(Pacman *pacman);
-void setDirection(Map *map, Pacman *pacman, unsigned int direction);
+Pacman *getPacmanInstance();
+void freePacman();
+void setPacmanDirection(unsigned int direction);
 #endif

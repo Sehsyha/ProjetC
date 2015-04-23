@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include "map.h"
 #include "pacman.h"
 #include "ghost.h"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include "render.h"
+#include "config.h"
 
-#define FPS 60
 
 /*
  *
@@ -21,7 +22,7 @@ void update(Map *map, Pacman *pacman, Ghost *clyde){
     }
     switch(pacman->direction){
         case NORTH:
-            if((result = testCollision(map, pacman->x, pacman->y - SPEED)) != WALL){
+            if((result = testCollision(pacman->x, pacman->y - SPEED)) != WALL){
                 pacman->y -= SPEED;
 
             }else{
@@ -30,7 +31,7 @@ void update(Map *map, Pacman *pacman, Ghost *clyde){
             }
             break;
         case SOUTH:
-            if((result = testCollision(map, pacman->x, pacman->y + SPEED + TILE_SIZE - 1)) != WALL){
+            if((result = testCollision(pacman->x, pacman->y + SPEED + TILE_SIZE - 1)) != WALL){
                 pacman->y += SPEED;
             }else{
                 pacman->direction = pacman->futureDirection;
@@ -38,7 +39,7 @@ void update(Map *map, Pacman *pacman, Ghost *clyde){
             }
             break;
         case EAST:
-            if((result = testCollision(map, pacman->x + SPEED + TILE_SIZE - 1, pacman->y)) != WALL){
+            if((result = testCollision(pacman->x + SPEED + TILE_SIZE - 1, pacman->y)) != WALL){
                 pacman->x += SPEED;
             }else{
                 pacman->direction = pacman->futureDirection;
@@ -46,7 +47,7 @@ void update(Map *map, Pacman *pacman, Ghost *clyde){
             }
             break;
         case WEST:
-            if((result = testCollision(map, pacman->x - SPEED, pacman->y)) != WALL){
+            if((result = testCollision(pacman->x - SPEED, pacman->y)) != WALL){
                 pacman->x -= SPEED;
             }else{
                 pacman->direction = pacman->futureDirection;
@@ -63,134 +64,17 @@ void update(Map *map, Pacman *pacman, Ghost *clyde){
 
 /*
  *
- * Function used to render the pacman
- *
- */
-int renderPacman(SDL_Texture *texturePacman, SDL_Texture *texturePacmanS, SDL_Texture *texturePacmanN, SDL_Texture *texturePacmanW, SDL_Texture *texturePacmanE, Pacman *pacman, int open, SDL_Renderer *renderer)
-{
-    SDL_Rect dest = {pacman->x, pacman->y, TILE_SIZE, TILE_SIZE};
-    if(open >= 0){
-        switch(pacman->direction){
-            case NORTH:
-                SDL_RenderCopy(renderer, texturePacmanN, NULL, &dest);
-                break;
-            case SOUTH:
-                SDL_RenderCopy(renderer, texturePacmanS, NULL, &dest);
-                break;
-            case EAST:
-                SDL_RenderCopy(renderer, texturePacmanE, NULL, &dest);
-                break;
-            case WEST:
-                SDL_RenderCopy(renderer, texturePacmanW, NULL, &dest);
-                break;
-            case STATIC:
-                SDL_RenderCopy(renderer, texturePacman, NULL, &dest);
-                break;
-        }
-        open++;
-        if(open >= FPS / (FPS / 10)){
-            open = -FPS / (FPS / 10);
-        }
-    }else{
-
-         SDL_RenderCopy(renderer, texturePacman, NULL, &dest);
-         open++;
-    }
-    return open;
-}
-
-void renderClyde(SDL_Texture *textureClyde, Ghost *clyde, SDL_Renderer *renderer){
-    SDL_Rect dest = {clyde->x, clyde->y, TILE_SIZE, TILE_SIZE};
-    SDL_RenderCopy(renderer, textureClyde, NULL, &dest);
-}
-
-/*
- *
- * Function used to print the map and the pacman
- *
- */
-void render(SDL_Texture *textureVoid, SDL_Texture *textureGum, SDL_Texture *textureWallH, SDL_Texture *textureWallV, SDL_Texture *textureWallNE, SDL_Texture *textureWallNW, SDL_Texture *textureWallSE, SDL_Texture *textureWallSW, SDL_Renderer *renderer, Map *map)
-{
-    unsigned int i, j;
-    //Clean the view
-    SDL_SetRenderDrawColor(renderer,255,255,255,255);
-    SDL_RenderClear(renderer);
-
-    //Print the map
-    for(i = 0 ; i < map->row ; i++){
-        for(j = 0 ; j < map->col ; j++){
-            SDL_Rect dest = { i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE };
-            switch(map->cells[j][i]){
-                case WALL:
-                    if(j > 0 && i > 0 && j < map->col - 1 && i < map->row - 1){
-//                        printf("%d %d\n", j, i);
-                        if(map->cells[j - 1][i] == WALL && map->cells[j + 1][i] == WALL){
-                            SDL_RenderCopy(renderer, textureWallV, NULL, &dest);
-                        }else if(map->cells[j][i - 1] == WALL && map->cells[j][i + 1] == WALL){
-                            SDL_RenderCopy(renderer, textureWallH, NULL, &dest);
-                        }else if(map->cells[j][i + 1] == WALL && map->cells[j + 1][i] == WALL){
-                            SDL_RenderCopy(renderer, textureWallNW, NULL, &dest);
-                        }else if(map->cells[j][i + 1] == WALL && map->cells[j - 1][i] == WALL){
-                            SDL_RenderCopy(renderer, textureWallSW, NULL, &dest);
-                        }else if(map->cells[j][i - 1] == WALL && map->cells[j + 1][i] == WALL){
-                            SDL_RenderCopy(renderer, textureWallNE, NULL, &dest);
-                        }else if(map->cells[j][i - 1] == WALL && map->cells[j - 1][i] == WALL){
-                            SDL_RenderCopy(renderer, textureWallSE, NULL, &dest);
-                        }
-                    }else{
-                        if(i == 0 && j == 0){
-                            SDL_RenderCopy(renderer, textureWallNW, NULL, &dest);
-                        }else if(i == 0 && j == map->row - 1){
-                            SDL_RenderCopy(renderer, textureWallSW, NULL, &dest);
-                        }else if(i == map->col - 1 && j == 0){
-                            SDL_RenderCopy(renderer, textureWallNE, NULL, &dest);
-                        }else if(i == map->col - 1 && j == map->row - 1){
-                            SDL_RenderCopy(renderer, textureWallSE, NULL, &dest);
-                        }else if(i == 0){
-                            if(map->cells[j + 1][i] == WALL && map->cells[j - 1][i] == WALL){
-                                SDL_RenderCopy(renderer, textureWallV, NULL, &dest);
-                            }
-                        }else if(j == 0){
-                            if(map->cells[j][i + 1] == WALL && map->cells[j][i - 1] == WALL){
-                                SDL_RenderCopy(renderer, textureWallH, NULL, &dest);
-                            }
-                        }else if(i == map->col - 1){
-                            if(map->cells[j + 1][i] == WALL && map->cells[j - 1][i] == WALL){
-                                SDL_RenderCopy(renderer, textureWallV, NULL, &dest);
-                            }
-                        }else if(j == map->row - 1){
-                            if(map->cells[j][i + 1] == WALL && map->cells[j][i - 1] == WALL){
-                                SDL_RenderCopy(renderer, textureWallH, NULL, &dest);
-                            }
-                        }
-                    }
-                    break;
-                case GUM:
-                    SDL_RenderCopy(renderer, textureGum, NULL, &dest);
-                    break;
-                default:
-                case VOID:
-                    SDL_RenderCopy(renderer, textureVoid, NULL, &dest);
-                    break;
-            }
-        }
-    }
-}
-
-/*
- *
  * Main function
  *
  */
 int main(void)
 {
     //Load the map
-    Map *map = loadMap("../projec/1.map");
+    loadMap("../projec/1.map");
 
     //Search the pacman on the map and create him
-    Pacman *pacman = searchAndCreatePacman(map);
-
-
+    Pacman *pacman = getPacmanInstance();
+    Map *map = getMapInstance();
     //If the pacman is not found
     if(!pacman){
         printf("Pacman not found on map\n");
@@ -298,8 +182,8 @@ int main(void)
     int open = 0;
     //Infinite loop until we want to stop the game
     while(!terminate){
-        render(textureVoid, textureGum, textureWallH, textureWallV, textureWallNE, textureWallNW, textureWallSE, textureWallSW, renderer, map);
-        open = renderPacman(texturePacman, texturePacmanS, texturePacmanN, texturePacmanW, texturePacmanE, pacman, open, renderer);
+        renderMap(textureVoid, textureGum, textureWallH, textureWallV, textureWallNE, textureWallNW, textureWallSE, textureWallSW, renderer);
+        open = renderPacman(texturePacman, texturePacmanS, texturePacmanN, texturePacmanW, texturePacmanE, open, renderer);
         renderClyde(textureClyde, clyde, renderer);
         changeDirectionGhost(map, clyde);
         SDL_RenderPresent(renderer);
@@ -312,16 +196,17 @@ int main(void)
             case SDL_KEYDOWN:
                 switch(event.key.keysym.scancode){
                     case SDL_SCANCODE_UP:
-                        setDirection(map, pacman, NORTH);
+                        setPacmanDirection(NORTH);
                         break;
                     case SDL_SCANCODE_DOWN:
-                        setDirection(map, pacman, SOUTH);
+                        setPacmanDirection(SOUTH);
                         break;
+
                     case SDL_SCANCODE_RIGHT:
-                        setDirection(map, pacman, EAST);
+                        setPacmanDirection(EAST);
                         break;
                     case SDL_SCANCODE_LEFT:
-                        setDirection(map, pacman, WEST);
+                        setPacmanDirection(WEST);
                         break;
                     default:
                         break;
@@ -350,8 +235,8 @@ int main(void)
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
-    freePacman(pacman);
-    freeMap(map);
+    freePacman();
+    freeMap();
     return EXIT_SUCCESS;
 }
 

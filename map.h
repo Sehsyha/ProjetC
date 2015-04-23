@@ -1,5 +1,9 @@
 #ifndef MAP_H
 #define MAP_H
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
 
 #define MAX_SIZE 100
 #define TILE_SIZE 20
@@ -23,9 +27,10 @@ struct Map
     char **cells;
 };
 
+Map *getMapInstance();
 void printMap(Map *map);
-Map *loadMap(char *path);
-void freeMap(Map *map);
-char testCollision(Map *map, unsigned int newX, unsigned int newY);
+void loadMap(char *path);
+void freeMap();
+char testCollision(unsigned int newX, unsigned int newY);
 
 #endif

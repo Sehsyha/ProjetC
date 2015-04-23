@@ -1,20 +1,26 @@
 #include "map.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
+
+Map *map = NULL;
+
+Map *getMapInstance(){
+    if(map == NULL){
+        printf("Map must be loaded\n");
+        exit(EXIT_FAILURE);
+    }
+    return map;
+}
 
 /*
  *
  * Function used to load a map with a file
  *
  */
-Map *loadMap(char *path){
+void loadMap(char *path){
     //Initialisations
     unsigned int row = 0;
     unsigned int col = 0;
     unsigned int i = 0;
     unsigned int j = 0;
-    Map *map = NULL;
     FILE *file = NULL;
     char line[MAX_SIZE];
     printf("Loading %s file\n", path);
@@ -94,7 +100,6 @@ Map *loadMap(char *path){
     }
     fclose(file);
     printf("Load success !\n");
-    return map;
 }
 
 /*
@@ -119,7 +124,8 @@ void printMap(Map *map){
  * Return the type of the object touched either
  *
  */
-char testCollision(Map *map, unsigned int newX, unsigned int newY){
+char testCollision(unsigned int newX, unsigned int newY){
+    Map *map = getMapInstance();
     char result = '1';
     int xMap = round(newX / TILE_SIZE);
     int yMap = round(newY / TILE_SIZE);
@@ -136,7 +142,7 @@ char testCollision(Map *map, unsigned int newX, unsigned int newY){
  * Function used to free the elements of a map
  *
  */
-void freeMap(Map *map){
+void freeMap(){
     unsigned int i = 0;
     for(i = 0 ; i < map->row ; i++){
         free(map->cells[i]);

@@ -7,10 +7,13 @@ LIBS += -lSDL2_image
 SOURCES += main.c \
     map.c \
     pacman.c \
-    ghost.c
+    ghost.c \
+    render.c
 
 HEADERS += \
     map.h \
     pacman.h \
-    ghost.h
+    ghost.h \
+    render.h \
+    config.h
 
