@@ -8,12 +8,14 @@ SOURCES += main.c \
     map.c \
     pacman.c \
     ghost.c \
-    render.c
+    render.c \
+    texture.c
 
 HEADERS += \
     map.h \
     pacman.h \
     ghost.h \
     render.h \
-    config.h
+    config.h \
+    texture.h
 
