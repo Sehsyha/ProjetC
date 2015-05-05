@@ -9,7 +9,9 @@ SOURCES += main.c \
     pacman.c \
     ghost.c \
     render.c \
-    texture.c
+    texture.c \
+    update.c \
+    astar.c
 
 HEADERS += \
     map.h \
@@ -17,5 +19,7 @@ HEADERS += \
     ghost.h \
     render.h \
     config.h \
-    texture.h
+    texture.h \
+    update.h \
+    astar.h
 

@@ -8,60 +8,7 @@
 #include "render.h"
 #include "config.h"
 #include "texture.h"
-
-/*
- *
- * Function used to update the map with the move of the pacman
- *
- */
-void update(Ghost *clyde){
-    Map *map = getMapInstance();
-    Pacman *pacman = getPacmanInstance();
-    int result = 0;
-    if(clyde->direction == EAST){
-        clyde->x += SPEED;
-
-    }
-    switch(pacman->direction){
-        case NORTH:
-            if((result = testCollision(pacman->x, pacman->y - SPEED)) != WALL){
-                pacman->y -= SPEED;
-
-            }else{
-                pacman->direction = pacman->futureDirection;
-                pacman->futureDirection = STATIC;
-            }
-            break;
-        case SOUTH:
-            if((result = testCollision(pacman->x, pacman->y + SPEED + TILE_SIZE - 1)) != WALL){
-                pacman->y += SPEED;
-            }else{
-                pacman->direction = pacman->futureDirection;
-                pacman->futureDirection = STATIC;
-            }
-            break;
-        case EAST:
-            if((result = testCollision(pacman->x + SPEED + TILE_SIZE - 1, pacman->y)) != WALL){
-                pacman->x += SPEED;
-            }else{
-                pacman->direction = pacman->futureDirection;
-                pacman->futureDirection = STATIC;
-            }
-            break;
-        case WEST:
-            if((result = testCollision(pacman->x - SPEED, pacman->y)) != WALL){
-                pacman->x -= SPEED;
-            }else{
-                pacman->direction = pacman->futureDirection;
-                pacman->futureDirection = STATIC;
-            }
-            break;
-    }
-    if(result == GUM){
-        map->cells[pacman->y / TILE_SIZE][pacman->x / TILE_SIZE] = VOID;
-        pacman->point++;
-    }
-}
+#include "update.h"
 
 
 /*
@@ -85,7 +32,7 @@ int main(void)
     }
     printf("Pacman found !\n");
 
-    Ghost *clyde = searchAndCreateGhost(map, CLYDE);
+    Ghost *clyde = searchAndCreateGhost(CLYDE);
     if(!clyde){
         printf("Clyde not found on map\n");
         freeMap(map);
@@ -112,7 +59,8 @@ int main(void)
 
     //If there is an error
     if(window == 0){
-        printf("Error during window creation : %s \n", SDL_GetError());
+        printf("Error during windo"
+               "w creation : %s \n", SDL_GetError());
         SDL_Quit();
         freeMap(map);
         return EXIT_FAILURE;
@@ -132,7 +80,7 @@ int main(void)
         renderMap(renderer);
         open = renderPacman(open, renderer);
         renderClyde(clyde, renderer);
-        changeDirectionGhost(map, clyde);
+        changeDirectionGhost(clyde);
         SDL_RenderPresent(renderer);
         //Event handling
         SDL_PollEvent(&event);

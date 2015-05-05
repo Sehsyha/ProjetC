@@ -1,8 +1,9 @@
 #include "ghost.h"
 
-void changeDirectionClyde(Map *map, Ghost *g);
+void changeDirectionClyde(Ghost *g);
 
-Ghost *searchAndCreateGhost(Map *map, char ghostType){
+Ghost *searchAndCreateGhost(char ghostType){
+    Map *map = getMapInstance();
     Ghost *g = 0;
     unsigned int i = 0, j = 0;
     int found = 0;
@@ -33,14 +34,15 @@ void freeGhost(Ghost *g){
     free(g);
 }
 
-void changeDirectionGhost(Map *map, Ghost *g){
+void changeDirectionGhost(Ghost *g){
     switch(g->type){
         case CLYDE:
-            changeDirectionClyde(map, g);
+            changeDirectionClyde(g);
             break;
     }
 }
 
-void changeDirectionClyde(Map *map, Ghost *g){
-    g->direction = EAST;
+void changeDirectionClyde(Ghost *g){
+    Pacman *pacman = getPacmanInstance();
+    g->direction = nextDirection(g->x, g->y, pacman->x, pacman->y);
 }

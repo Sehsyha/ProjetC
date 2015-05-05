@@ -1,10 +1,11 @@
 #ifndef GHOST_H
 #define GHOST_H
-
 #include <stdlib.h>
 #include <stdio.h>
-#include "map.h"
 #include <SDL2/SDL.h>
+#include "map.h"
+#include "astar.h"
+#include "pacman.h"
 
 typedef struct Ghost Ghost;
 struct Ghost{
@@ -15,7 +16,7 @@ struct Ghost{
     char type;
 };
 
-Ghost *searchAndCreateGhost(Map *map, char ghostType);
+Ghost *searchAndCreateGhost(char ghostType);
 void freeGhost(Ghost *g);
-void changeDirectionGhost(Map *map, Ghost *g);
+void changeDirectionGhost(Ghost *g);
 #endif
