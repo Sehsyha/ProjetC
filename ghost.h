@@ -3,9 +3,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <SDL2/SDL.h>
+#include <time.h>
+
 #include "map.h"
 #include "astar.h"
 #include "pacman.h"
+
+
 
 typedef struct Ghost Ghost;
 struct Ghost{

@@ -115,3 +115,8 @@ void renderClyde(Ghost *clyde, SDL_Renderer *renderer){
     SDL_Rect dest = { clyde->x, clyde->y, TILE_SIZE, TILE_SIZE };
     SDL_RenderCopy(renderer, getTextureClyde(), NULL, &dest);
 }
+
+void renderBlinky(Ghost *blinky, SDL_Renderer *renderer){
+    SDL_Rect dest = { blinky->x, blinky->y, TILE_SIZE, TILE_SIZE };
+    SDL_RenderCopy(renderer, getTextureBlinky(), NULL, &dest);
+}

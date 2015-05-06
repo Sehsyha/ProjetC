@@ -12,6 +12,7 @@
 #define PAC '2'
 #define VOID '0'
 #define CLYDE 'C'
+#define BLINKY 'B'
 
 #define NORTH 0
 #define EAST 1

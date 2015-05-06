@@ -1,6 +1,7 @@
 #include "ghost.h"
 
 void changeDirectionClyde(Ghost *g);
+void changeDirectionBlinky(Ghost *g);
 
 Ghost *searchAndCreateGhost(char ghostType){
     Map *map = getMapInstance();
@@ -39,10 +40,25 @@ void changeDirectionGhost(Ghost *g){
         case CLYDE:
             changeDirectionClyde(g);
             break;
+        case BLINKY:
+            changeDirectionBlinky(g);
+            break;
     }
 }
 
 void changeDirectionClyde(Ghost *g){
+    srand(time(NULL));
+    int direction = rand()%4;
+    if(direction != g->direction){
+        if(g->direction == STATIC){
+            g->direction = direction;
+        }else{
+            g->futureDirection = direction;
+        }
+    }
+}
+
+void changeDirectionBlinky(Ghost *g){
     Pacman *pacman = getPacmanInstance();
     g->direction = nextDirection(g->x, g->y, pacman->x, pacman->y);
 }

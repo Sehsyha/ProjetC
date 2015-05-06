@@ -39,6 +39,15 @@ int main(void)
         exit(EXIT_FAILURE);
     }
     printf("Clyde found !\n");
+
+    Ghost *blinky = searchAndCreateGhost(BLINKY);
+    if(!blinky){
+        printf("Blinky not found on map\n");
+        freeMap(map);
+        freeGhost(clyde);
+        exit(EXIT_FAILURE);
+    }
+    printf("Blinky found !\n");
     printf("SDL initialisation\n");
 
     //Create SDL objects
@@ -59,8 +68,7 @@ int main(void)
 
     //If there is an error
     if(window == 0){
-        printf("Error during windo"
-               "w creation : %s \n", SDL_GetError());
+        printf("Error during window creation : %s \n", SDL_GetError());
         SDL_Quit();
         freeMap(map);
         return EXIT_FAILURE;
@@ -80,7 +88,12 @@ int main(void)
         renderMap(renderer);
         open = renderPacman(open, renderer);
         renderClyde(clyde, renderer);
+        renderBlinky(blinky, renderer);
+
+
+        changeDirectionGhost(blinky);
         changeDirectionGhost(clyde);
+
         SDL_RenderPresent(renderer);
         //Event handling
         SDL_PollEvent(&event);
@@ -107,7 +120,7 @@ int main(void)
                 }
                 break;
         }
-        update(clyde);
+        update(clyde, blinky);
         SDL_Delay(1000 / FPS);
     }
 
@@ -117,6 +130,8 @@ int main(void)
     SDL_DestroyWindow(window);
     SDL_Quit();
     freePacman();
+    freeGhost(clyde);
+    freeGhost(blinky);
     freeMap();
     return EXIT_SUCCESS;
 }

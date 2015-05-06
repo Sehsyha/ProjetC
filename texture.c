@@ -14,6 +14,7 @@ SDL_Texture *texturePacmanS = NULL;
 SDL_Texture *texturePacmanW = NULL;
 SDL_Texture *textureGum = NULL;
 SDL_Texture *textureClyde = NULL;
+SDL_Texture *textureBlinky = NULL;
 
 SDL_Texture *getTextureWallV(){
     return textureWallV;
@@ -69,6 +70,10 @@ SDL_Texture *getTextureGum(){
 
 SDL_Texture *getTextureClyde(){
     return textureClyde;
+}
+
+SDL_Texture *getTextureBlinky(){
+    return textureBlinky;
 }
 
 void loadTextures(SDL_Renderer *renderer){
@@ -128,6 +133,10 @@ void loadTextures(SDL_Renderer *renderer){
     SDL_Surface *clydeI = IMG_Load("../projec/clyde.png");
     textureClyde = SDL_CreateTextureFromSurface(renderer, clydeI);
     SDL_FreeSurface(clydeI);
+
+    SDL_Surface *blinkyI = IMG_Load("../projec/blinky.png");
+    textureBlinky = SDL_CreateTextureFromSurface(renderer, blinkyI);
+    SDL_FreeSurface(blinkyI);
 }
 
 void freeTextures(){
@@ -138,6 +147,7 @@ void freeTextures(){
     SDL_DestroyTexture(textureWallSE);
     SDL_DestroyTexture(textureWallSW);
     SDL_DestroyTexture(textureClyde);
+    SDL_DestroyTexture(textureBlinky);
     SDL_DestroyTexture(textureVoid);
     SDL_DestroyTexture(textureGum);
     SDL_DestroyTexture(texturePacman);
