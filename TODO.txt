@@ -1,0 +1,18 @@
+-	Nettoyer le code si besoin (Tout factoriser pour réécrire le moins possible)
+
+-	Ajouter du son au jeu
+-	Finir le A*
+-	Faire l'IA des fantomes
+-	Faire le skin des fantomes ainsi que l'animation de mouvement
+-	Faire le générateur de cartes ainsi que les cartes de base
+-	Gérer les collisions avec les fantomes
+-	Ajouter la boule qui permet de manger les autres fantomes
+-	Ajouter affichage du score et vie restantes
+-	Faire un menu permettant de choisir la carte
+
+
+S'il reste du temps
+-	Ajouter différents skins de fantomes / pacman comme ici : http://pix-geeks.com/fantomes-pac-man/
+-	Faire un écran qui peut se redimensionner
+-	Permettre au joueur de coder son IA de pacman
+-	Ajouter le choix de jeu au menu
