@@ -6,7 +6,6 @@
 #include <time.h>
 
 #include "map.h"
-#include "astar.h"
 #include "pacman.h"
 
 
