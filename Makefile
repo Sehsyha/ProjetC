@@ -13,8 +13,8 @@ MAKEFILE      = Makefile
 CC            = /usr/bin/gcc
 CXX           = /usr/bin/g++
 DEFINES       = 
-CFLAGS        = -g3 -gdwarf-2 -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong --param=ssp-buffer-size=4 -Wall -W -fPIE $(DEFINES)
-CXXFLAGS      = -g3 -gdwarf-2 -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong --param=ssp-buffer-size=4 -Wall -W -fPIE $(DEFINES)
+CFLAGS        = -g3 -gdwarf-2 -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong --param=ssp-buffer-size=4 -Wall -W -fPIC $(DEFINES)
+CXXFLAGS      = -g3 -gdwarf-2 -O2 -march=x86-64 -mtune=generic -O2 -pipe -fstack-protector-strong --param=ssp-buffer-size=4 -Wall -W -fPIC $(DEFINES)
 INCPATH       = -I. -I/usr/lib/qt/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt/bin/qmake
 DEL_FILE      = rm -f
@@ -36,7 +36,7 @@ DISTNAME      = ProjetC1A1.0.0
 DISTDIR = /home/panpriape/C/projec/.tmp/ProjetC1A1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1 -Wl,-O1,--sort-common,--as-needed,-z,relro
-LIBS          = $(SUBLIBS) -lSDL2 -lSDL2_image 
+LIBS          = $(SUBLIBS) -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -55,7 +55,8 @@ SOURCES       = main.c \
 		render.c \
 		texture.c \
 		update.c \
-		astar.c 
+		astar.c \
+		liste_chainee.c 
 OBJECTS       = main.o \
 		map.o \
 		pacman.o \
@@ -63,7 +64,8 @@ OBJECTS       = main.o \
 		render.o \
 		texture.o \
 		update.o \
-		astar.o
+		astar.o \
+		liste_chainee.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/shell-unix.conf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
@@ -160,14 +162,16 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		config.h \
 		texture.h \
 		update.h \
-		astar.h main.c \
+		astar.h \
+		liste_chainee.h main.c \
 		map.c \
 		pacman.c \
 		ghost.c \
 		render.c \
 		texture.c \
 		update.c \
-		astar.c
+		astar.c \
+		liste_chainee.c
 QMAKE_TARGET  = ProjetC1A
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = ProjetC1A
@@ -462,8 +466,13 @@ update.o: update.c update.h \
 	$(CC) -c $(CFLAGS) $(INCPATH) -o update.o update.c
 
 astar.o: astar.c astar.h \
-		map.h
+		map.h \
+		pacman.h \
+		ghost.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o astar.o astar.c
+
+liste_chainee.o: liste_chainee.c liste_chainee.h
+	$(CC) -c $(CFLAGS) $(INCPATH) -o liste_chainee.o liste_chainee.c
 
 ####### Install
 
