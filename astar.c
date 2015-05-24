@@ -23,12 +23,12 @@ float heuristique(Ghost *g,Pacman *p) {
     return res;
 }
 
-int *graphageMap(Map *m) {
+Liste *graphageMap(Map *m) {
     int c,l,i,j;
     c = m ->col;
     l = m ->row;
 
-    int rep[c*l][c*l];
+
 
 
 }

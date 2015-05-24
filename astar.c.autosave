@@ -1,6 +1,7 @@
 #include "astar.h"
 #include "ghost.h"
 #include "pacman.h"
+#include "liste_chainee.h"
 
 float heuristique(Ghost *g,Pacman *p);
 
@@ -23,12 +24,23 @@ float heuristique(Ghost *g,Pacman *p) {
     return res;
 }
 
-int *graphageMap(Map *m) {
+Liste *graphageMap(Map *m) {
     int c,l,i,j;
     c = m ->col;
     l = m ->row;
 
-    
+    Liste rep[c][l];
+    for (i = 0;i < c; i++) {
+        for (j = 0; j < l; j++) {
+            Liste 
+            if (i == 0) {
+                if (j == 0) {
+                    
+                }
+        
+            }
+        }
+    }
 
 
 }

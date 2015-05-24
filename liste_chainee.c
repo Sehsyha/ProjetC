@@ -80,7 +80,7 @@ Element *head(Liste *l) {
     if (Emplty(l) == 0) {
         return l->premier;
     } else {
-        return null;
+        return NULL;
     }
 
 }
@@ -90,6 +90,6 @@ Liste *tail(Liste *l) {
         l->premier = l->premier->suivant;
         return l;
     } else {
-        return null;
+        return NULL;
     }
 }
