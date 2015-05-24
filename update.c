@@ -99,7 +99,7 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
 
     switch(pacman->direction){
         case NORTH:
-            if((result = testCollision(pacman->x, pacman->y - SPEED)) != WALL){
+            if((result = testCollision(pacman->x, pacman->y - SPEED)) != WALL && result != GATE){
                 pacman->y -= SPEED;
             }else{
                 pacman->direction = pacman->futureDirection;
@@ -107,7 +107,7 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
             }
             break;
         case SOUTH:
-            if((result = testCollision(pacman->x, pacman->y + SPEED + TILE_SIZE - 1)) != WALL){
+            if((result = testCollision(pacman->x, pacman->y + SPEED + TILE_SIZE - 1)) != WALL && result != GATE){
                 pacman->y += SPEED;
             }else{
                 pacman->direction = pacman->futureDirection;
@@ -115,7 +115,7 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
             }
             break;
         case EAST:
-            if((result = testCollision(pacman->x + SPEED + TILE_SIZE - 1, pacman->y)) != WALL){
+            if((result = testCollision(pacman->x + SPEED + TILE_SIZE - 1, pacman->y)) != WALL && result != GATE){
                 pacman->x += SPEED;
             }else{
                 pacman->direction = pacman->futureDirection;
@@ -123,7 +123,7 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
             }
             break;
         case WEST:
-            if((result = testCollision(pacman->x - SPEED, pacman->y)) != WALL){
+            if((result = testCollision(pacman->x - SPEED, pacman->y)) != WALL && result != GATE){
                 pacman->x -= SPEED;
             }else{
                 pacman->direction = pacman->futureDirection;
