@@ -136,12 +136,19 @@ int main(void)
     SDL_Surface *score = TTF_RenderText_Solid(police, "Score : ", color);
     SDL_Texture *scoreT = SDL_CreateTextureFromSurface(renderer, score);
     SDL_FreeSurface(score);
+    char scoreString[15];
+
     SDL_Rect dest = {0, map->row * TILE_SIZE , map->row * TILE_SIZE / 6, 20};
     SDL_RenderCopy(renderer, scoreT, NULL, &dest);
-
+    SDL_Surface *scoreN;
+    SDL_Texture *scoreTN;
     int open = 0;
     //Infinite loop until we want to stop the game
     while(!terminate){
+        SDL_Rect dest2 = {map->row * TILE_SIZE / 6, map->row * TILE_SIZE, map->row * TILE_SIZE / 15, 20};
+        sprintf(scoreString, "%d", pacman->point);
+        scoreN = TTF_RenderText_Solid(police, scoreString, color);
+        scoreTN = SDL_CreateTextureFromSurface(renderer, score);
         renderMap(renderer);
         open = renderPacman(open, renderer);
         renderClyde(clyde, renderer);
@@ -153,9 +160,16 @@ int main(void)
         changeDirectionGhost(clyde);
         changeDirectionGhost(inky);
         changeDirectionGhost(pinky);
+        SDL_Rect dest = {0, map->row * TILE_SIZE , map->row * TILE_SIZE / 6, 20};
+        SDL_RenderCopy(renderer, scoreT, NULL, &dest);
+
+
+
+        SDL_RenderCopy(renderer, scoreTN, NULL, &dest2);
 
         SDL_RenderPresent(renderer);
         //Event handling
+
         SDL_PollEvent(&event);
         switch(event.type){
             case SDL_KEYDOWN:
@@ -190,6 +204,8 @@ int main(void)
             terminate = 1;
         }
         SDL_Delay(1000 / FPS);
+        SDL_DestroyTexture(scoreTN);
+        SDL_FreeSurface(scoreN);
     }
 
     Mix_FreeMusic(music);
