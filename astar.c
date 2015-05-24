@@ -8,6 +8,7 @@ float heuristique(Ghost *g);
 unsigned int nextDirection(Ghost *g){
     Map *map = getMapInstance();
     float distance = heuristique(g);
+    Liste **tab = graphageMap(map);
 
     return NORTH;
 }
