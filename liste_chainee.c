@@ -21,7 +21,7 @@ int isEmpty(Liste *l) {
 }
 
 int isEqual(Element *e,Element *p,int te, int tp) {
-    int rep = 0,i;
+    int rep = 1,i;
     if (tp == te) {
         for(i = 0; i < te; i++) {
             rep = rep && ((e->nombre[i]) == (p->nombre[i]));
@@ -100,10 +100,9 @@ void afficherListe(Liste *liste)
         printf("[ ");
         for(i = 0 ; i < liste->nuplet ; i++){
             printf("%d", actuel->nombre[i]);
-            if(i != liste->nuplet - 1){
-                printf(", ");
-            }
+            printf(", ");
         }
+        printf("%f, %f", actuel->f_score, actuel->g_score);
         printf(" ]");
         actuel = actuel->suivant;
         printf("->");

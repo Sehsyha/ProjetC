@@ -10,7 +10,7 @@ unsigned int nextDirection(Ghost *g){
     Pacman *pacman = getPacmanInstance();
     Map *map = getMapInstance();
 //    float distance = heuristique(g);
-    Liste **tab = graphageMap(map);
+//    Liste **tab = graphageMap(map);
 
     Liste *ouverte = initialisation(2);
     Liste *ferme = initialisation(2);
@@ -34,21 +34,39 @@ unsigned int nextDirection(Ghost *g){
             return NORTH;
         }
 
-//      remove current from openset
-//      add current to closedset
+        parcourt = ouverte->premier;
+
+        if(isEqual(parcourt, current, parcourt->nombre, current->nombre)){
+            ouverte->premier = current->suivant;
+
+        }else{
+            while(parcourt != NULL && !isEqual(parcourt->suivant, current, parcourt->nombre, current->nombre)){
+                parcourt = parcourt->suivant;
+            }
+            if(parcourt != NULL){
+                parcourt->suivant = current->suivant;
+            }
+        }
+
+
+        insertion(ferme, current->nombre, current->g_score, current->f_score);
+//        parcourt = tab[current->nombre[1]][current->nombre[0]].premier;
+//        while(parcourt != NULL){
+//            printf("%d %d", parcourt->nombre[0], parcourt->nombre[1]);
+//            parcourt = parcourt->suivant;
+//        }
 //      for each neighbor in neighbor_nodes(current)
 //          if neighbor in closedset
 //              continue
 //          tentative_g_score := g_score[current] + dist_between(current,neighbor)
 
-//      if neighbor not in openset or tentative_g_score < g_score[neighbor]
-//          came_from[neighbor] := current
-//          g_score[neighbor] := tentative_g_score
-//          f_score[neighbor] := g_score[neighbor] + heuristic_cost_estimate(neighbor, goal)
-//          if neighbor not in openset
-//              add neighbor to openset
+//          if neighbor not in openset or tentative_g_score < g_score[neighbor]
+//              came_from[neighbor] := current
+//              g_score[neighbor] := tentative_g_score
+//              f_score[neighbor] := g_score[neighbor] + heuristic_cost_estimate(neighbor, goal)
+//              if neighbor not in openset
+//                  add neighbor to openset
     }
-
     return STATIC;
 }
 
@@ -58,7 +76,7 @@ float heuristique(int x, int y) {
     float res = 0;
     px = p->x;
     py = p->y;
-    res = ( py - px ) / ( y - x );
+    res = sqrt(pow(x - (int)(p->x), 2) + pow(y - (int)(p->y), 2));
     return res;
 }
 
@@ -68,32 +86,32 @@ Liste **graphageMap(Map *m) {
     l = m ->row;
 
     Liste rep[c][l];
-    for (i = 1 ; i < c; i++) {
-        for (j = 1 ; j < l ; j++) {
+    for (i = 0 ; i < c; i++) {
+        for (j = 0 ; j < l ; j++) {
             Liste *incident = initialisation(1);
 
             if (m ->cells[i][j] == 1) {
                 rep[i][j] = *incident;
             } else {
-                if (m->cells[i-1][j] == 1) {
+                if (i > 0 && m->cells[i-1][j] == 1) {
                     insertion(incident,0, 0, 0);
                 } else {
                     insertion(incident,1, 0, 0);
                 }
 
-                if (m->cells[i][j+1] == 1) {
+                if (j < l-1 && m->cells[i][j+1] == 1) {
                     insertion(incident,0, 0, 0);
                 } else {
                     insertion(incident,1, 0, 0);
                 }
 
-                if (m->cells[i+1][j] == 1) {
+                if (i < c-1 && m->cells[i+1][j] == 1) {
                     insertion(incident,0, 0, 0);
                 } else {
                     insertion(incident,1, 0, 0);
                 }
 
-                if (m->cells[i][j-1] == 1) {
+                if (j > 0 && m->cells[i][j-1] == 1) {
                     insertion(incident,0, 0, 0);
                 } else {
                     insertion(incident,1, 0, 0);
