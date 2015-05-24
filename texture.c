@@ -18,6 +18,11 @@ SDL_Texture *textureBlinky = NULL;
 SDL_Texture *textureInky = NULL;
 SDL_Texture *texturePinky = NULL;
 SDL_Texture *textureBigGum = NULL;
+SDL_Texture *textureFear = NULL;
+
+SDL_Texture *getTextureFear(){
+    return textureFear;
+}
 
 SDL_Texture *getTextureBigGum(){
     return textureBigGum;
@@ -97,6 +102,10 @@ void loadTextures(SDL_Renderer *renderer){
     SDL_Surface *bigGum = IMG_Load("../projec/bigGum.png");
     textureBigGum = SDL_CreateTextureFromSurface(renderer, bigGum);
     SDL_FreeSurface(bigGum);
+
+    SDL_Surface *fear = IMG_Load("../projec/fear.png");
+    textureFear = SDL_CreateTextureFromSurface(renderer, fear);
+    SDL_FreeSurface(fear);
 
     SDL_Surface *wallV = IMG_Load("../projec/wallV.png");
     textureWallV = SDL_CreateTextureFromSurface(renderer, wallV);
@@ -186,4 +195,5 @@ void freeTextures(){
     SDL_DestroyTexture(texturePacmanS);
     SDL_DestroyTexture(texturePacmanW);
     SDL_DestroyTexture(textureBigGum);
+    SDL_DestroyTexture(textureFear);
 }

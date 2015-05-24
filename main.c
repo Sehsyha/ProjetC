@@ -149,6 +149,8 @@ int main(void)
 
         changeDirectionGhost(blinky);
         changeDirectionGhost(clyde);
+        changeDirectionGhost(inky);
+        changeDirectionGhost(pinky);
 
         SDL_RenderPresent(renderer);
         //Event handling
