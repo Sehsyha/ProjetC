@@ -5,6 +5,7 @@ CONFIG -= qt
 LIBS += -lSDL2
 LIBS += -lSDL2_image
 LIBS += -lSDL2_mixer
+LIBS += -lSDL2_ttf
 
 SOURCES += main.c \
     map.c \
