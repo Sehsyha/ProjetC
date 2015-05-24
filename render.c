@@ -62,7 +62,7 @@ void renderMap(SDL_Renderer *renderer){
             SDL_Rect dest = { i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE };
             switch(map->cells[j][i]){
                 case WALL:
-                    if(j > 0 && i > 0 && j < map->col - 1 && i < map->row - 1){
+                    if(j > 0 && i > 0 && i < map->col - 1 && j < map->row - 1){
 //                        printf("%d %d\n", j, i);
                         if(map->cells[j - 1][i] == WALL && map->cells[j + 1][i] == WALL){
                             SDL_RenderCopy(renderer, getTextureWallV(), NULL, &dest);
