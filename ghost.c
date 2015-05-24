@@ -125,29 +125,9 @@ void changeDirectionBlinky(Ghost *g){
 
     int collision = 1;
 
-    switch(g->direction){
-        case NORTH:
-            if(testCollision(g->x, g->y - SPEED) != WALL){
-                collision = 0;
-            }
-            break;
-        case SOUTH:
-            if(testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != WALL){
-                collision = 0;
-            }
-            break;
-        case EAST:
-            if(testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) != WALL){
-                collision = 0;
-            }
-            break;
-        case WEST:
-            if(testCollision(g->x - SPEED, g->y) != WALL){
-                collision = 0;
-            }
-            break;
-    }
-    if (collision == 0) {
+    if ((testCollision(g->x, g->y - SPEED) != WALL) && (testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != WALL) && (testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) != WALL))
+
+    if (collision) {
         unsigned int direction = rand() % 4;
         collision = 1;
         do{
