@@ -60,5 +60,5 @@ void changeDirectionClyde(Ghost *g){
 
 void changeDirectionBlinky(Ghost *g){
     Pacman *pacman = getPacmanInstance();
-    g->direction = nextDirection(g->x, g->y, pacman->x, pacman->y);
+    g->direction = nextDirection(g);
 }

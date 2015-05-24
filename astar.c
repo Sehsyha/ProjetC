@@ -3,28 +3,28 @@
 #include "pacman.h"
 #include "liste_chainee.h"
 
-float heuristique(Ghost *g,Pacman *p);
+float heuristique(Ghost *g);
 
-unsigned int nextDirection(Ghost *g,Pacman *p){
+unsigned int nextDirection(Ghost *g){
     Map *map = getMapInstance();
-    float distance = heuristique(g,p);
+    float distance = heuristique(g);
 
     return NORTH;
 }
 
-float heuristique(Ghost *g,Pacman *p) {
+float heuristique(Ghost *g) {
+    Pacman *p = getPacmanInstance();
     int gx,gy,px,py;
-    float res;
+    float res = 0;
     gx = g->x;
     gy = g->y;
     px = p->x;
     py = p->y;
-    res = (py-px)/(gy-gx);
-
+    res = ( py - px ) / ( gy - gx );
     return res;
 }
 
-Liste *graphageMap(Map *m) {
+Liste **graphageMap(Map *m) {
     int c,l,i,j;
     c = m ->col;
     l = m ->row;
@@ -64,5 +64,5 @@ Liste *graphageMap(Map *m) {
 
         }
     }
-    return *rep;
+    return rep;
 }
