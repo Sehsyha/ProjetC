@@ -125,7 +125,7 @@ int main(void)
         freeMap(map);
         return EXIT_FAILURE;
     }
-
+    int j;
     printf("SDL init success\n");
     SDL_Renderer *renderer = 0;
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -143,6 +143,7 @@ int main(void)
     SDL_Surface *scoreN;
     SDL_Texture *scoreTN;
     int open = 0;
+    int konami[10] = {0,0,0,0,0,0,0,0,0,0};
     //Infinite loop until we want to stop the game
     while(!terminate){
         SDL_Rect dest2 = {map->row * TILE_SIZE / 6, map->row * TILE_SIZE, map->row * TILE_SIZE / 15, 20};
@@ -176,6 +177,18 @@ int main(void)
                 switch(event.key.keysym.scancode){
                     case SDL_SCANCODE_UP:
                         setPacmanDirection(NORTH);
+                        if(konami[0]){
+                            if(konami[1]){
+                                for(j = 0 ; j < 10 ; j++){
+                                    konami[j] = 0;
+                                }
+                                printf("Déjà deux\n");
+                            }else{
+                                konami[1] = 1;
+                            }
+                        }else{
+                            konami[0] = 1;
+                        }
                         break;
                     case SDL_SCANCODE_DOWN:
                         setPacmanDirection(SOUTH);
