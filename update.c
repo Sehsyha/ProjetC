@@ -134,6 +134,7 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
     if(result == BIGGUM){
         pacman->point += 100;
         pacman->powerTime = FPS * POWER_TIME;
+        map->cells[pacman->y / TILE_SIZE][pacman->x / TILE_SIZE] = VOID;
     }
     if(result == GUM){
         map->cells[pacman->y / TILE_SIZE][pacman->x / TILE_SIZE] = VOID;
