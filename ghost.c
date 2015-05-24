@@ -57,7 +57,6 @@ void changeDirectionGhost(Ghost *g){
 }
 
 void changeDirectionClyde(Ghost *g){
-    srand(time(NULL));
 
 
     int collision = 1;
