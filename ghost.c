@@ -26,6 +26,8 @@ Ghost *searchAndCreateGhost(char ghostType){
         g = malloc(sizeof(Ghost));
         g->x = j * TILE_SIZE;
         g->y = i * TILE_SIZE;
+        g->initialX = g->x;
+        g->initialY = g->y;
         g->direction = STATIC;
         g->futureDirection = STATIC;
         g->type = ghostType;
@@ -44,6 +46,12 @@ void changeDirectionGhost(Ghost *g){
             break;
         case BLINKY:
             changeDirectionBlinky(g);
+            break;
+        case INKY:
+            changeDirectionInky(g);
+            break;
+        case PINKY:
+            changeDirectionPinky(g);
             break;
     }
 }

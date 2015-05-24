@@ -14,6 +14,8 @@ typedef struct Ghost Ghost;
 struct Ghost{
     unsigned int x;
     unsigned int y;
+    unsigned int initialX;
+    unsigned int initialY;
     unsigned int direction;
     unsigned int futureDirection;
     char type;

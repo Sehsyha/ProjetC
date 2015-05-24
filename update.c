@@ -141,16 +141,41 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
     }
     result = 0;
     if(collision(clyde)){
-        result = 1;
+        if(pacman->powerTime > 0){
+            pacman->point += 250;
+            clyde->x = clyde->initialX;
+            clyde->y = clyde->initialY;
+        }else{
+            result = 1;
+        }
+
     }
     if(collision(blinky)){
-        result = 1;
+        if(pacman->powerTime > 0){
+            pacman->point += 250;
+            clyde->x = clyde->initialX;
+            clyde->y = clyde->initialY;
+        }else{
+            result = 1;
+        }
     }
     if(collision(inky)){
-        result = 1;
+        if(pacman->powerTime > 0){
+            pacman->point += 250;
+            inky->x = inky->initialX;
+            inky->y = inky->initialY;
+        }else{
+            result = 1;
+        }
     }
     if(collision(pinky)){
-        result = 1;
+        if(pacman->powerTime > 0){
+            pacman->point += 250;
+            pinky->x = pinky->initialX;
+            pinky->y = pinky->initialY;
+        }else{
+            result = 1;
+        }
     }
     return result;
 }
