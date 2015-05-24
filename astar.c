@@ -2,7 +2,6 @@
 #include "ghost.h"
 #include "pacman.h"
 #include "liste_chainee.h"
-#include "couple.h"
 
 float heuristique(Ghost *g);
 Liste **graphageMap(Map *m);

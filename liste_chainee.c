@@ -29,7 +29,7 @@ int Empty(Liste *l) {
 }
 
 
-void insertion(Liste *liste, int nvNombre)
+void insertion(Liste *liste, int *nvNombre)
 {
     /* Création du nouvel élément */
     Element *nouveau = malloc(sizeof(*nouveau));
@@ -96,7 +96,7 @@ Liste *tail(Liste *l) {
 }
 
 int nuplet(Liste *l) {
-    if (Empty(*l) == 0) {
+    if (Empty(l) == 0) {
         return -1;
     } else {
         l->nuplet;

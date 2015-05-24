@@ -17,6 +17,11 @@ SDL_Texture *textureClyde = NULL;
 SDL_Texture *textureBlinky = NULL;
 SDL_Texture *textureInky = NULL;
 SDL_Texture *texturePinky = NULL;
+SDL_Texture *textureBigGum = NULL;
+
+SDL_Texture *getTextureBigGum(){
+    return textureBigGum;
+}
 
 SDL_Texture *getTextureWallV(){
     return textureWallV;
@@ -88,6 +93,11 @@ SDL_Texture *getTexturePinky(){
 
 void loadTextures(SDL_Renderer *renderer){
     //Create the textures of all the sprites we need
+
+    SDL_Surface *bigGum = IMG_Load("../projec/bigGum.png");
+    textureBigGum = SDL_CreateTextureFromSurface(renderer, bigGum);
+    SDL_FreeSurface(bigGum);
+
     SDL_Surface *wallV = IMG_Load("../projec/wallV.png");
     textureWallV = SDL_CreateTextureFromSurface(renderer, wallV);
     SDL_FreeSurface(wallV);
@@ -175,4 +185,5 @@ void freeTextures(){
     SDL_DestroyTexture(texturePacmanE);
     SDL_DestroyTexture(texturePacmanS);
     SDL_DestroyTexture(texturePacmanW);
+    SDL_DestroyTexture(textureBigGum);
 }

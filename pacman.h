@@ -18,7 +18,7 @@ struct Pacman
     unsigned int y;
     unsigned int point;
     unsigned int life;
-    unsigned int state;
+    unsigned int powerTime;
     unsigned int direction;
     unsigned int futureDirection;
 };
