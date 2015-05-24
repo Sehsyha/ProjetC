@@ -77,7 +77,7 @@ void afficherListe(Liste *liste)
 }
 
 Element *head(Liste *l) {
-    if (Emplty(l) == 0) {
+    if (Empty(l) == 0) {
         return l->premier;
     } else {
         return NULL;

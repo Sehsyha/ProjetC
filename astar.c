@@ -7,9 +7,9 @@ float heuristique(Ghost *g,Pacman *p);
 
 unsigned int nextDirection(Ghost *g,Pacman *p){
     Map *map = getMapInstance();
-    float distance = heuristique(*g,*p);
+    float distance = heuristique(g,p);
 
-    return direction;
+    return NORTH;
 }
 
 float heuristique(Ghost *g,Pacman *p) {
