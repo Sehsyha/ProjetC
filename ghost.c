@@ -41,18 +41,18 @@ void freeGhost(Ghost *g){
 
 void changeDirectionGhost(Ghost *g){
     switch(g->type){
-        case CLYDE:
-            changeDirectionClyde(g);
-            break;
-        case BLINKY:
-            changeDirectionBlinky(g);
-            break;
-        case INKY:
-            changeDirectionInky(g);
-            break;
-        case PINKY:
-            changeDirectionPinky(g);
-            break;
+    case CLYDE:
+        changeDirectionClyde(g);
+        break;
+    case BLINKY:
+        changeDirectionBlinky(g);
+        break;
+    case INKY:
+        changeDirectionInky(g);
+        break;
+    case PINKY:
+        changeDirectionPinky(g);
+        break;
     }
 }
 
@@ -61,26 +61,26 @@ void changeDirectionClyde(Ghost *g){
 
     int collision = 1;
     switch(g->direction){
-        case NORTH:
-            if(testCollision(g->x, g->y - SPEED) != WALL){
-                collision = 0;
-            }
-            break;
-        case SOUTH:
-            if(testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != WALL){
-                collision = 0;
-            }
-            break;
-        case EAST:
-            if(testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) != WALL){
-                collision = 0;
-            }
-            break;
-        case WEST:
-            if(testCollision(g->x - SPEED, g->y) != WALL){
-                collision = 0;
-            }
-            break;
+    case NORTH:
+        if(testCollision(g->x, g->y - SPEED) != WALL){
+            collision = 0;
+        }
+        break;
+    case SOUTH:
+        if(testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != WALL){
+            collision = 0;
+        }
+        break;
+    case EAST:
+        if(testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) != WALL){
+            collision = 0;
+        }
+        break;
+    case WEST:
+        if(testCollision(g->x - SPEED, g->y) != WALL){
+            collision = 0;
+        }
+        break;
     }
     if(collision){
         unsigned int direction = rand() % 4;
@@ -88,26 +88,26 @@ void changeDirectionClyde(Ghost *g){
         do{
             direction = rand() % 4;
             switch(direction){
-                case NORTH:
-                    if(testCollision(g->x, g->y - SPEED) != WALL){
-                        collision = 0;
-                    }
-                    break;
-                case SOUTH:
-                    if(testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != WALL){
-                        collision = 0;
-                    }
-                    break;
-                case EAST:
-                    if(testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) != WALL){
-                        collision = 0;
-                    }
-                    break;
-                case WEST:
-                    if(testCollision(g->x - SPEED, g->y) != WALL){
-                        collision = 0;
-                    }
-                    break;
+            case NORTH:
+                if(testCollision(g->x, g->y - SPEED) != WALL){
+                    collision = 0;
+                }
+                break;
+            case SOUTH:
+                if(testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != WALL){
+                    collision = 0;
+                }
+                break;
+            case EAST:
+                if(testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) != WALL){
+                    collision = 0;
+                }
+                break;
+            case WEST:
+                if(testCollision(g->x - SPEED, g->y) != WALL){
+                    collision = 0;
+                }
+                break;
             }
         }while(collision);
 
@@ -123,49 +123,45 @@ void changeDirectionClyde(Ghost *g){
 
 void changeDirectionBlinky(Ghost *g){
 
-    int collision = 1;
+    int direction = g->direction;
 
-    if ((testCollision(g->x, g->y - SPEED) != WALL) && (testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != WALL) && (testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) != WALL))
+    if ((testCollision(g->x, g->y - SPEED) != WALL) && (testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != WALL) && (testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) != WALL) && (testCollision(g->x - SPEED, g->y) != WALL)) {
+        direction = rand() % 4;
 
-    if (collision) {
-        unsigned int direction = rand() % 4;
-        collision = 1;
-        do{
+    }
+
+    switch (direction) {
+    case 0:
+        if (testCollision(g->x, g->y - SPEED) != WALL) {
             direction = rand() % 4;
-            switch(direction){
-                case NORTH:
-                    if(testCollision(g->x, g->y - SPEED) != WALL){
-                        collision = 0;
-                    }
-                    break;
-                case SOUTH:
-                    if(testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != WALL){
-                        collision = 0;
-                    }
-                    break;
-                case EAST:
-                    if(testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) != WALL){
-                        collision = 0;
-                    }
-                    break;
-                case WEST:
-                    if(testCollision(g->x - SPEED, g->y) != WALL){
-                        collision = 0;
-                    }
-                    break;
-            }
-        }while(collision);
-
-        if(direction != g->direction){
-            if(g->direction == STATIC){
-                g->direction = direction;
-            }else{
-                g->futureDirection = direction;
-            }
+        }
+        break;
+    case 1:
+        if (testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != WALL) {
+            direction = rand() % 4;
+        }
+        break;
+    case 2:
+        if (testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) != WALL) {
+            direction = rand() % 4;
+        }
+        break;
+    case 3:
+        if (testCollision(g->x - SPEED, g->y) != WALL) {
+            direction = rand() % 4;
+            break;
         }
     }
 
+    if(direction != g->direction){
+        if(g->direction == STATIC){
+            g->direction = direction;
+        }else{
+            g->futureDirection = direction;
+        }
+    }
 }
+
 
 void changeDirectionInky(Ghost *g){
     g->direction = nextDirection(g);
@@ -175,4 +171,3 @@ void changeDirectionInky(Ghost *g){
 void changeDirectionPinky(Ghost *g){
     g->direction = nextDirection(g);
 }
-
