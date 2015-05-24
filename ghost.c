@@ -130,28 +130,33 @@ void changeDirectionBlinky(Ghost *g){
 
     }
 
-    switch (direction) {
-    case 0:
-        if (testCollision(g->x, g->y - SPEED) != WALL) {
-            direction = rand() % 4;
-        }
-        break;
-    case 1:
-        if (testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != WALL) {
-            direction = rand() % 4;
-        }
-        break;
-    case 2:
-        if (testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) != WALL) {
-            direction = rand() % 4;
-        }
-        break;
-    case 3:
-        if (testCollision(g->x - SPEED, g->y) != WALL) {
-            direction = rand() % 4;
+    int collision = 1;
+    do{
+        direction = rand() % 4;
+        switch(direction){
+        case NORTH:
+            if(testCollision(g->x, g->y - SPEED) != WALL){
+                collision = 0;
+            }
+            break;
+        case SOUTH:
+            if(testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != WALL){
+                collision = 0;
+            }
+            break;
+        case EAST:
+            if(testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) != WALL){
+                collision = 0;
+            }
+            break;
+        case WEST:
+            if(testCollision(g->x - SPEED, g->y) != WALL){
+                collision = 0;
+            }
             break;
         }
-    }
+    }while(collision);
+
 
     if(direction != g->direction){
         if(g->direction == STATIC){
