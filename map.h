@@ -9,6 +9,7 @@
 #define TILE_SIZE 20
 #define GUM '.'
 #define WALL '1'
+#define GATE '-'
 #define PAC '2'
 #define VOID '0'
 #define CLYDE 'C'
