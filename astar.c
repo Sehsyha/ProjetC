@@ -12,8 +12,8 @@ unsigned int nextDirection(Ghost *g){
     float distance = heuristique(g);
     Liste **tab = graphageMap(map);
 
-    Liste *ouverte = initialisation();
-    Liste *ferme = initialisation();
+    Liste *ouverte = initialisation(2);
+    Liste *ferme = initialisation(2);
 
 
 
@@ -40,7 +40,7 @@ Liste **graphageMap(Map *m) {
     Liste rep[c][l];
     for (i = 1;i < c - 1; i++) {
         for (j = 1; j < l - 1; j++) {
-            Liste *incident = initialisation();
+            Liste *incident = initialisation(1);
 
             if (m ->cells[i][j] == 1) {
                 rep[i][j] = *incident;
