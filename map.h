@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <pacman.h>
 
 #define MAX_SIZE 100
 #define TILE_SIZE 20
@@ -37,5 +38,6 @@ void printMap(Map *map);
 void loadMap(char *path);
 void freeMap();
 char testCollision(unsigned int newX, unsigned int newY);
+int testCoude(unsigned int newX, unsigned int newY);
 
 #endif

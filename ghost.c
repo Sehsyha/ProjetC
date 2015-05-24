@@ -134,51 +134,30 @@ void changeDirectionClyde(Ghost *g){
 void changeDirectionBlinky(Ghost *g){
 
     if (g->sortie == 0) {
-            if (testCollision(g->x, g->y - SPEED) == WALL) {
-                g->direction = 1;
-            } else {
-              g->direction = 0;
+        if (testCollision(g->x, g->y - SPEED) == WALL) {
+            g->direction = 1;
+        } else {
+            g->direction = 0;
         }
-            if (testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) == WALL) {
-                g->sortie = 1;
-            }
+        if (testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) == WALL) {
+            g->sortie = 1;
+        }
 
     } else {
 
         unsigned int direction = g->direction;
-
-        if ((testCollision(g->x, g->y - SPEED) != WALL) && (testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != WALL) && (testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) != WALL) && (testCollision(g->x - SPEED, g->y) != WALL)) {
-            direction = rand() % 4;
-
-        }
-
-        int collision = 1;
-        do{
-            direction = rand() % 4;
-            switch(direction){
-            case NORTH:
-                if(testCollision(g->x, g->y - SPEED) != WALL){
-                    collision = 0;
-                }
-                break;
-            case SOUTH:
-                if(testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != WALL){
-                    collision = 0;
-                }
-                break;
-            case EAST:
-                if(testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) != WALL){
-                    collision = 0;
-                }
-                break;
-            case WEST:
-                if(testCollision(g->x - SPEED, g->y) != WALL){
-                    collision = 0;
-                }
-                break;
+        int tc = testCoude(g->x,g->y);
+        if (tc > 0) {
+            if (tc == 1) {
+                direction = rand() % 2;
+            } else if (tc == 2) {
+                direction = 1 + rand() % 2;
+            } else if (tc == 3) {
+                direction = 2 + rand() % 2;
+            } else if (tc == 4) {
+                direction = ( 3 + rand() % 2) % 4;
             }
-        }while(collision);
-
+        }
 
         if(direction != g->direction){
             if(g->direction == STATIC){

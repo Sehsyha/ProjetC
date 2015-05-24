@@ -83,7 +83,7 @@ void loadMap(char *path){
 
         fgets(line, MAX_SIZE, file);
         if(strlen(line) - 1 > map->col || strlen(line) - 1 < map->col){
-            printf("Error, number of columns does not correspond : %d != %d\n", strlen(line) - 1, map->col);
+            printf("Error, number of columns does not correspond : %d != %d\n", (int)strlen(line) - 1, map->col);
             fclose(file);
             exit(EXIT_FAILURE);
         }
@@ -135,6 +135,24 @@ char testCollision(unsigned int newX, unsigned int newY){
             break;
     }
     return result;
+}
+
+int testCoude(unsigned int newX, unsigned int newY) {
+    Map *map = getMapInstance();
+    int xMap = round(newX / TILE_SIZE);
+    int yMap = round(newY / TILE_SIZE);
+
+    if (map->cells[yMap + SPEED][xMap] == '.' && map->cells[yMap][xMap + SPEED] == '.') {
+        return 1;
+    } else if (map->cells[yMap - SPEED][xMap] == '.' && map->cells[yMap][xMap + SPEED] == '.') {
+        return 2;
+    } else if (map->cells[yMap - SPEED][xMap] == '.' && map->cells[yMap][xMap - SPEED] == '.') {
+        return 3;
+    } else if (map->cells[yMap + SPEED][xMap] == '.' && map->cells[yMap][xMap - SPEED] == '.') {
+        return 4;
+    } else {
+        return -1;
+    }
 }
 
 /*
