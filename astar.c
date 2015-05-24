@@ -7,49 +7,49 @@ float heuristique(int x, int y);
 Liste **graphageMap(Map *m);
 
 unsigned int nextDirection(Ghost *g){
-    Pacman *pacman = getPacmanInstance();
-    Map *map = getMapInstance();
-//    float distance = heuristique(g);
-//    Liste **tab = graphageMap(map);
+//    Pacman *pacman = getPacmanInstance();
+//    Map *map = getMapInstance();
+////    float distance = heuristique(g);
+////    Liste **tab = graphageMap(map);
 
-    Liste *ouverte = initialisation(2);
-    Liste *ferme = initialisation(2);
-    Element *current;
-    Element *parcourt;
-    int couple[] = {g->x, g->y};
-    insertion(ouverte, couple, heuristique(g->x, g->y), 0);
-    float minFscore;
-    while(!isEmpty(ouverte)){
-//      current := the node in openset having the lowest f_score[] value
-        parcourt = ouverte->premier;
-        minFscore = 100000000000000;
-        while(parcourt != NULL){
-            if(parcourt->f_score < minFscore){
-                current = parcourt;
-                minFscore = parcourt->f_score;
-            }
-            parcourt = parcourt->suivant;
-        }
-        if(current->nombre[0] == pacman->x && current->nombre[1] == pacman->y){
-            return NORTH;
-        }
+//    Liste *ouverte = initialisation(2);
+//    Liste *ferme = initialisation(2);
+//    Element *current;
+//    Element *parcourt;
+//    int couple[] = {g->x, g->y};
+//    insertion(ouverte, couple, heuristique(g->x, g->y), 0);
+//    float minFscore;
+//    while(!isEmpty(ouverte)){
+////      current := the node in openset having the lowest f_score[] value
+//        parcourt = ouverte->premier;
+//        minFscore = 100000000000000;
+//        while(parcourt != NULL){
+//            if(parcourt->f_score < minFscore){
+//                current = parcourt;
+//                minFscore = parcourt->f_score;
+//            }
+//            parcourt = parcourt->suivant;
+//        }
+//        if(current->nombre[0] == pacman->x && current->nombre[1] == pacman->y){
+//            return NORTH;
+//        }
 
-        parcourt = ouverte->premier;
+//        parcourt = ouverte->premier;
 
-        if(isEqual(parcourt, current, parcourt->nombre, current->nombre)){
-            ouverte->premier = current->suivant;
+//        if(isEqual(parcourt, current, parcourt->nombre, current->nombre)){
+//            ouverte->premier = current->suivant;
 
-        }else{
-            while(parcourt != NULL && !isEqual(parcourt->suivant, current, parcourt->nombre, current->nombre)){
-                parcourt = parcourt->suivant;
-            }
-            if(parcourt != NULL){
-                parcourt->suivant = current->suivant;
-            }
-        }
+//        }else{
+//            while(parcourt != NULL && !isEqual(parcourt->suivant, current, parcourt->nombre, current->nombre)){
+//                parcourt = parcourt->suivant;
+//            }
+//            if(parcourt != NULL){
+//                parcourt->suivant = current->suivant;
+//            }
+//        }
 
 
-        insertion(ferme, current->nombre, current->g_score, current->f_score);
+//        insertion(ferme, current->nombre, current->g_score, current->f_score);
 //        parcourt = tab[current->nombre[1]][current->nombre[0]].premier;
 //        while(parcourt != NULL){
 //            printf("%d %d", parcourt->nombre[0], parcourt->nombre[1]);
@@ -66,7 +66,7 @@ unsigned int nextDirection(Ghost *g){
 //              f_score[neighbor] := g_score[neighbor] + heuristic_cost_estimate(neighbor, goal)
 //              if neighbor not in openset
 //                  add neighbor to openset
-    }
+//    }
     return STATIC;
 }
 
