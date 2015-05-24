@@ -135,7 +135,7 @@ int main(void)
                 }
                 break;
         }
-        update(clyde, blinky);
+        terminate = update(clyde, blinky);
         SDL_Delay(1000 / FPS);
     }
 
