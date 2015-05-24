@@ -15,6 +15,7 @@
 #define BLINKY 'B'
 #define PINKY 'P'
 #define INKY 'I'
+#define BIGGUM 'G'
 
 #define NORTH 0
 #define EAST 1

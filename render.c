@@ -108,6 +108,9 @@ void renderMap(SDL_Renderer *renderer){
                 case GUM:
                     SDL_RenderCopy(renderer, getTextureGum(), NULL, &dest);
                     break;
+                case BIGGUM:
+                    SDL_RenderCopy(renderer, getTextureBigGum(), NULL, &dest);
+                    break;
                 default:
                 case VOID:
                     SDL_RenderCopy(renderer, getTextureVoid(), NULL, &dest);
@@ -119,6 +122,7 @@ void renderMap(SDL_Renderer *renderer){
 
 void renderClyde(Ghost *clyde, SDL_Renderer *renderer){
     SDL_Rect dest = { clyde->x, clyde->y, TILE_SIZE, TILE_SIZE };
+
     SDL_RenderCopy(renderer, getTextureClyde(), NULL, &dest);
 }
 

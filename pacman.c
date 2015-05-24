@@ -29,6 +29,7 @@ Pacman *getPacmanInstance(){
             pacman->futureDirection = STATIC;
             pacman->life = START_LIFE;
             pacman->point = 0;
+            pacman->powerTime = 0;
         }
     }
     return pacman;
