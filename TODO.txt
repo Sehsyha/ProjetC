@@ -1,3 +1,16 @@
+
+
+
+
+- Faire bouger les 2 derniers fantômes je ne vois pas pourquoi il ne bouge pas
+
+
+
+
+
+
+
+
 -	Nettoyer le code si besoin (Tout factoriser pour réécrire le moins possible)
 
 -	Finir le A* //Yoann

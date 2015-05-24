@@ -137,30 +137,26 @@ char testCollision(unsigned int newX, unsigned int newY){
     return result;
 }
 
-int testCoude(unsigned int newX, unsigned int newY) {
+int *testCoude(unsigned int newX, unsigned int newY, int* rep) {
     Map *map = getMapInstance();
     int xMap = round(newX / TILE_SIZE);
-    int xMap1 = round((newX + SPEED)/TILE_SIZE);
-    int xMap2 = round((newX - SPEED)/TILE_SIZE);
+    int xMap1 = round((newX - SPEED)/TILE_SIZE);
+    int xMap2 = round((newX + SPEED)/TILE_SIZE);
     int yMap = round(newY / TILE_SIZE);
-    int yMap1 = round((newY + SPEED)/TILE_SIZE);
-    int yMap2 = round((newY - SPEED)/TILE_SIZE);
+    int yMap1 = round((newY - SPEED)/TILE_SIZE);
+    int yMap2 = round((newY + SPEED)/TILE_SIZE);
+    rep =(int*)malloc(4*sizeof(int));
 
-    if (map->cells[yMap1][xMap] == '.' && map->cells[yMap][xMap1] == '.') {
-        return 1;
-    } else if (map->cells[yMap2][xMap] == '.' && map->cells[yMap][xMap1] == '.') {
-        return 2;
-    } else if (map->cells[yMap2][xMap] == '.' && map->cells[yMap][xMap2] == '.') {
-        return 3;
-    } else if (map->cells[yMap2][xMap] == '.' && map->cells[yMap][xMap2] == '.') {
-        return 4;
-    } else if (map->cells[yMap1][xMap] == '.' && map->cells[yMap2][xMap] == '.'){
-        return 5;
-    } else if (map->cells[yMap][xMap2] == '.' && map->cells[yMap][xMap1] == '.') {
-        return 6;
-    } else {
-        return -1;
+    if (map->cells[yMap1][xMap] == '.') {
+        rep[0] = 1;
+    } else if (map->cells[yMap2][xMap] == '.') {
+        rep[2] = 1;
+    } else if (map->cells[yMap][xMap1] == '.') {
+        rep[3] = 1;
+    } else if (map->cells[yMap][xMap2] == '.') {
+        rep[1] = 1;
     }
+    return rep;
 }
 
 /*
