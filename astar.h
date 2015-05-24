@@ -5,6 +5,16 @@
 #include "ghost.h"
 #include "liste_chainee.h"
 
+
+typedef struct point {
+    int x,y;
+} point;
+
+typedef struct noeud{
+    float cout_g, cout_h, cout_f;
+    int c,l; // 'adresse' du parent (qui sera toujours dans la map fermée)
+} noeud;
+
 unsigned int nextDirection(Ghost *g);
 
 #endif

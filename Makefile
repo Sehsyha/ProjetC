@@ -426,7 +426,6 @@ compiler_clean:
 main.o: main.c map.h \
 		pacman.h \
 		ghost.h \
-		astar.h \
 		render.h \
 		config.h \
 		texture.h \
@@ -442,7 +441,6 @@ pacman.o: pacman.c pacman.h \
 
 ghost.o: ghost.c ghost.h \
 		map.h \
-		astar.h \
 		pacman.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o ghost.o ghost.c
 
@@ -450,7 +448,6 @@ render.o: render.c render.h \
 		map.h \
 		pacman.h \
 		ghost.h \
-		astar.h \
 		config.h \
 		texture.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o render.o render.c
@@ -461,14 +458,14 @@ texture.o: texture.c texture.h
 update.o: update.c update.h \
 		map.h \
 		ghost.h \
-		astar.h \
 		pacman.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o update.o update.c
 
 astar.o: astar.c astar.h \
 		map.h \
 		pacman.h \
-		ghost.h
+		ghost.h \
+		liste_chainee.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o astar.o astar.c
 
 liste_chainee.o: liste_chainee.c liste_chainee.h

@@ -28,6 +28,38 @@ int Empty(Liste *l) {
     }
 }
 
+int isEqual(Element *e,Element *p,int te, int tp) {
+    int rep,i;
+    if (tp == te) {
+        for(i = 0; i < te; i++) {
+            rep = rep && ((e->nombre[i]) == (p->nombre[i]));
+        }
+    } else {
+        rep = 0;
+    }
+
+    return rep;
+}
+
+int appartient(Element *e,Liste *l,int te) {
+    Liste *p;
+    p=l;
+    int taille = p->nuplet;
+
+    if (te != l->nuplet) {
+        return 0;
+    } else {
+        while(p->premier != NULL) {
+            if (isEqual(e,p->premier,te,taille)) {
+                return 1;
+            } else {
+                p->premier = p->premier->suivant;
+            }
+        }
+    }
+
+}
+
 
 void insertion(Liste *liste, int *nvNombre)
 {

@@ -23,6 +23,6 @@ int Empty(Liste *l); // 0 la liste est vide 1 sinon
 Element *head(Liste *l); // Renvoie la tête de la liste sans la modifier (pas de remove ni de deplacement)
 Liste *tail(Liste *l); // Renvoie la queue de la liste sans supprimer la tête
 int nuplet(Liste *l);
-
+int appartient(Element *e,Liste *l,int te);
 
 #endif
