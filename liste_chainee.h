@@ -18,5 +18,8 @@ Liste *initialisation();
 void insertion(Liste *liste, int nvNombre);
 void suppression(Liste *liste);
 void afficherListe(Liste *liste);
+int Empty(Liste *l); // 0 la liste est vide 1 sinon
+Element *head(Liste *l); // Renvoie la tête de la liste sans la modifier (pas de remove ni de deplacement)
+Liste *tail(Liste *l); // Renvoie la queue de la liste sans supprimer la tête
 
 #endif
