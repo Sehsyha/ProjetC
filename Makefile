@@ -441,7 +441,9 @@ pacman.o: pacman.c pacman.h \
 
 ghost.o: ghost.c ghost.h \
 		map.h \
-		pacman.h
+		pacman.h \
+		astar.h \
+		liste_chainee.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o ghost.o ghost.c
 
 render.o: render.c render.h \
@@ -458,7 +460,8 @@ texture.o: texture.c texture.h
 update.o: update.c update.h \
 		map.h \
 		ghost.h \
-		pacman.h
+		pacman.h \
+		config.h
 	$(CC) -c $(CFLAGS) $(INCPATH) -o update.o update.c
 
 astar.o: astar.c astar.h \
