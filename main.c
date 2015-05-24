@@ -3,6 +3,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_mixer.h>
+#include <SDL2/SDL_ttf.h>
 #include "map.h"
 #include "pacman.h"
 #include "ghost.h"
@@ -77,9 +78,22 @@ int main(void)
         Mix_PlayMusic(music, -1);
     }
 
+    if(TTF_Init() == -1){
+        printf("Error during TTF initialization : %s\n", TTF_GetError());
+    }
+
+    TTF_Font *police = NULL;
+
+    police = TTF_OpenFont("../projec/monof.ttf", 65);
+    if(!police){
+        printf("Error during font load : %s\n", TTF_GetError());
+    }
+    SDL_Color color = { 255, 255, 255, 255};
+
+
 
     //Create the window
-    window = SDL_CreateWindow("Pacman", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, TILE_SIZE * map->col, TILE_SIZE * map->row, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Pacman", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, TILE_SIZE * map->col, TILE_SIZE * map->row + TILE_SIZE, SDL_WINDOW_SHOWN);
 
     //If there is an error
     if(window == 0){
@@ -94,16 +108,21 @@ int main(void)
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     //NEED gerer erreurs
 
-
     loadTextures(renderer);
+
+    SDL_Surface *score = TTF_RenderText_Solid(police, "Score : ", color);
+    SDL_Texture *scoreT = SDL_CreateTextureFromSurface(renderer, score);
+    SDL_FreeSurface(score);
+    SDL_Rect dest = {0, map->row * TILE_SIZE , map->row * TILE_SIZE / 6, 20};
+    SDL_RenderCopy(renderer, scoreT, NULL, &dest);
 
     int open = 0;
     //Infinite loop until we want to stop the game
     while(!terminate){
-        renderMap(renderer);
-        open = renderPacman(open, renderer);
-        renderClyde(clyde, renderer);
-        renderBlinky(blinky, renderer);
+//        renderMap(renderer);
+//        open = renderPacman(open, renderer);
+//        renderClyde(clyde, renderer);
+//        renderBlinky(blinky, renderer);
 
 
         changeDirectionGhost(blinky);
@@ -112,9 +131,6 @@ int main(void)
         SDL_RenderPresent(renderer);
         //Event handling
         SDL_PollEvent(&event);
-        if(event.window.event == SDL_WINDOWEVENT_CLOSE){
-            terminate = 1;
-        }
         switch(event.type){
             case SDL_KEYDOWN:
                 switch(event.key.keysym.scancode){
@@ -136,6 +152,9 @@ int main(void)
                 break;
         }
         terminate = update(clyde, blinky);
+        if(event.window.event == SDL_WINDOWEVENT_CLOSE){
+            terminate = 1;
+        }
         SDL_Delay(1000 / FPS);
     }
 
@@ -145,10 +164,13 @@ int main(void)
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+    SDL_DestroyTexture(scoreT);
     freePacman();
     freeGhost(clyde);
     freeGhost(blinky);
     freeMap();
+    TTF_CloseFont(police);
+    TTF_Quit();
     return EXIT_SUCCESS;
 }
 
