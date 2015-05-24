@@ -1,11 +1,13 @@
 #include "update.h"
 
+int collision(Ghost *ghost);
+
 /*
  *
  * Function used to update the map with the move of the pacman
  *
  */
-void update(Ghost *clyde, Ghost *blinky){
+int update(Ghost *clyde, Ghost *blinky){
     Map *map = getMapInstance();
     Pacman *pacman = getPacmanInstance();
     int result = 0;
@@ -129,4 +131,37 @@ void update(Ghost *clyde, Ghost *blinky){
         map->cells[pacman->y / TILE_SIZE][pacman->x / TILE_SIZE] = VOID;
         pacman->point++;
     }
+    result = 0;
+    if(collision(clyde)){
+        result = 1;
+    }
+    if(collision(blinky)){
+        result = 1;
+    }
+
+    return result;
+}
+
+int inSquare(Ghost *ghost, int x, int y){
+    return x >= ghost->x && y >= ghost->y && x <= ghost->x + TILE_SIZE && y <= ghost->y + TILE_SIZE;
+}
+
+int collision(Ghost *ghost){
+    int retour = 0;
+    Pacman *pacman = getPacmanInstance();
+    if(inSquare(ghost, pacman->x, pacman->y)){
+        retour = 1;
+    }
+    if(inSquare(ghost, pacman->x, pacman->y + TILE_SIZE - 1)){
+        retour = 1;
+    }
+    if(inSquare(ghost, pacman->x + TILE_SIZE - 1, pacman->y)){
+        retour = 1;
+    }
+    if(inSquare(ghost, pacman->x + TILE_SIZE - 1, pacman->y + TILE_SIZE - 1)){
+        retour = 1;
+    }
+
+
+    return retour;
 }

@@ -51,8 +51,8 @@ void renderMap(SDL_Renderer *renderer){
     SDL_RenderClear(renderer);
 
     //Print the map
-    for(i = 0 ; i < map->row ; i++){
-        for(j = 0 ; j < map->col ; j++){
+    for(i = 0 ; i < map->col ; i++){
+        for(j = 0 ; j < map->row; j++){
             SDL_Rect dest = { i * TILE_SIZE, j * TILE_SIZE, TILE_SIZE, TILE_SIZE };
             switch(map->cells[j][i]){
                 case WALL:

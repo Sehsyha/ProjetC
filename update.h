@@ -9,5 +9,5 @@
  * Function used to update the map with the move of the pacman
  *
  */
-void update(Ghost *clyde, Ghost *blinky);
+int update(Ghost *clyde, Ghost *blinky);
 #endif
