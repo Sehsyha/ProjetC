@@ -80,6 +80,12 @@ void renderMap(SDL_Renderer *renderer){
                             SDL_RenderCopy(renderer, getTextureWallNE(), NULL, &dest);
                         }else if(map->cells[j][i - 1] == WALL && map->cells[j - 1][i] == WALL){
                             SDL_RenderCopy(renderer, getTextureWallSE(), NULL, &dest);
+                        }else if(map->cells[j][i+1] == GATE || map->cells[j][i - 1] == GATE){
+                            SDL_RenderCopy(renderer, getTextureWallH(), NULL, &dest);
+                        }else if(map->cells[j][i + 1] == WALL || map->cells[j][i - 1] == WALL){
+                            SDL_RenderCopy(renderer, getTextureWallH(), NULL, &dest);
+                        }else if(map->cells[j + 1][i] == WALL || map->cells[j - 1][i] == WALL){
+                            SDL_RenderCopy(renderer, getTextureWallV(), NULL, &dest);
                         }
                     }else{
                         if(i == 0 && j == 0){
