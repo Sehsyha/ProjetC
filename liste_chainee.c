@@ -5,31 +5,23 @@
 Liste *initialisation(int nbvaleur)
 {
     Liste *liste = malloc(sizeof(*liste));
-    Element *element = malloc(sizeof(*element));
 
-    if (liste == NULL || element == NULL)
+    if (liste == NULL)
     {
         exit(EXIT_FAILURE);
     }
-
-    element->nombre = malloc(nbvaleur*sizeof(int));
-    element->suivant = NULL;
-    liste->premier = element;
+    liste->premier = NULL;
     liste->nuplet = nbvaleur;
 
     return liste;
 }
 
-int Empty(Liste *l) {
-    if (l->premier->nombre == -1) {
-        return 0;
-    } else {
-        return 1;
-    }
+int isEmpty(Liste *l) {
+    return l->premier == NULL;
 }
 
 int isEqual(Element *e,Element *p,int te, int tp) {
-    int rep,i;
+    int rep = 0,i;
     if (tp == te) {
         for(i = 0; i < te; i++) {
             rep = rep && ((e->nombre[i]) == (p->nombre[i]));
@@ -57,11 +49,11 @@ int appartient(Element *e,Liste *l,int te) {
             }
         }
     }
-
+    return 0;
 }
 
 
-void insertion(Liste *liste, int *nvNombre)
+void insertion(Liste *liste, int *nvNombre, float f_score, float g_score)
 {
     /* Création du nouvel élément */
     Element *nouveau = malloc(sizeof(*nouveau));
@@ -70,6 +62,8 @@ void insertion(Liste *liste, int *nvNombre)
         exit(EXIT_FAILURE);
     }
     nouveau->nombre = nvNombre;
+    nouveau->f_score = f_score;
+    nouveau->g_score = g_score;
 
     /* Insertion de l'élément au début de la liste */
     nouveau->suivant = liste->premier;
@@ -84,7 +78,7 @@ void suppression(Liste *liste)
         exit(EXIT_FAILURE);
     }
 
-    if (liste->premier != NULL)
+    if (liste->premier)
     {
         Element *aSupprimer = liste->premier;
         liste->premier = liste->premier->suivant;
@@ -100,17 +94,25 @@ void afficherListe(Liste *liste)
     }
 
     Element *actuel = liste->premier;
-
+    int i = 0 ;
     while (actuel != NULL)
     {
-        printf("%d -> ", actuel->nombre);
+        printf("[ ");
+        for(i = 0 ; i < liste->nuplet ; i++){
+            printf("%d", actuel->nombre[i]);
+            if(i != liste->nuplet - 1){
+                printf(", ");
+            }
+        }
+        printf(" ]");
         actuel = actuel->suivant;
+        printf("->");
     }
     printf("NULL\n");
 }
 
 Element *head(Liste *l) {
-    if (Empty(l) == 0) {
+    if (isEmpty(l) == 0) {
         return l->premier;
     } else {
         return NULL;
@@ -119,7 +121,7 @@ Element *head(Liste *l) {
 }
 
 Liste *tail(Liste *l) {
-    if (Empty(l) == 0) {
+    if (!isEmpty(l)) {
         l->premier = l->premier->suivant;
         return l;
     } else {
@@ -128,9 +130,9 @@ Liste *tail(Liste *l) {
 }
 
 int nuplet(Liste *l) {
-    if (Empty(l) == 0) {
+    if (!isEmpty(l)) {
         return -1;
     } else {
-        l->nuplet;
+        return l->nuplet;
     }
 }

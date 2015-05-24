@@ -36,7 +36,7 @@ int renderPacman(int open, SDL_Renderer *renderer){
          open++;
     }
     Map *map = getMapInstance();
-    int i = 0;
+    unsigned int i = 0;
     for(i = pacman->life ; i > 0; i--){
         SDL_Rect dest2 = { map->col * TILE_SIZE - i * TILE_SIZE, map->row * TILE_SIZE, TILE_SIZE, TILE_SIZE };
         SDL_RenderCopy(renderer, getTexturePacmanE(), NULL, &dest2);
