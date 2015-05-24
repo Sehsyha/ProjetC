@@ -27,6 +27,7 @@ SDL_Texture *getTextureInky();
 SDL_Texture *getTexturePinky();
 SDL_Texture *getTextureBigGum();
 SDL_Texture *getTextureFear();
+SDL_Texture *getTextureGate();
 
 
 #endif

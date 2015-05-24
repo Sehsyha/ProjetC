@@ -19,6 +19,11 @@ SDL_Texture *textureInky = NULL;
 SDL_Texture *texturePinky = NULL;
 SDL_Texture *textureBigGum = NULL;
 SDL_Texture *textureFear = NULL;
+SDL_Texture *textureGate = NULL;
+
+SDL_Texture *getTextureGate(){
+    return textureGate;
+}
 
 SDL_Texture *getTextureFear(){
     return textureFear;
@@ -99,6 +104,10 @@ SDL_Texture *getTexturePinky(){
 void loadTextures(SDL_Renderer *renderer){
     //Create the textures of all the sprites we need
 
+    SDL_Surface *gate = IMG_Load("../projec/gate.png");
+    textureGate = SDL_CreateTextureFromSurface(renderer, gate);
+    SDL_FreeSurface(gate);
+
     SDL_Surface *bigGum = IMG_Load("../projec/bigGum.png");
     textureBigGum = SDL_CreateTextureFromSurface(renderer, bigGum);
     SDL_FreeSurface(bigGum);
@@ -177,6 +186,7 @@ void loadTextures(SDL_Renderer *renderer){
 }
 
 void freeTextures(){
+    SDL_DestroyTexture(textureGate);
     SDL_DestroyTexture(textureWallV);
     SDL_DestroyTexture(textureWallH);
     SDL_DestroyTexture(textureWallNE);

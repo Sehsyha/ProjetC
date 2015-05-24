@@ -115,6 +115,9 @@ void renderMap(SDL_Renderer *renderer){
                 case BIGGUM:
                     SDL_RenderCopy(renderer, getTextureBigGum(), NULL, &dest);
                     break;
+                case GATE:
+                    SDL_RenderCopy(renderer, getTextureGate(), NULL, &dest);
+                    break;
                 default:
                 case VOID:
                     SDL_RenderCopy(renderer, getTextureVoid(), NULL, &dest);
