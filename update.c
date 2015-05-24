@@ -1,4 +1,5 @@
 #include "update.h"
+#include "config.h"
 
 int collision(Ghost *ghost);
 
@@ -11,6 +12,9 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
     Map *map = getMapInstance();
     Pacman *pacman = getPacmanInstance();
     int result = 0;
+    if(pacman->powerTime > 0){
+        pacman->powerTime--;
+    }
     if(clyde->x % TILE_SIZE == 0 && clyde->y % TILE_SIZE == 0){
         if(clyde->futureDirection != STATIC){
             clyde->direction = clyde->futureDirection;
@@ -127,6 +131,10 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
             }
             break;
     }
+    if(result == BIGGUM){
+        pacman->point += 100;
+        pacman->powerTime = FPS * POWER_TIME;
+    }
     if(result == GUM){
         map->cells[pacman->y / TILE_SIZE][pacman->x / TILE_SIZE] = VOID;
         pacman->point++;
@@ -144,11 +152,10 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
     if(collision(pinky)){
         result = 1;
     }
-
     return result;
 }
 
-int inSquare(Ghost *ghost, int x, int y){
+int inSquare(Ghost *ghost, unsigned int x, unsigned int y){
     return x >= ghost->x && y >= ghost->y && x <= ghost->x + TILE_SIZE && y <= ghost->y + TILE_SIZE;
 }
 

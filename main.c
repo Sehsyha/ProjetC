@@ -25,6 +25,8 @@ int main(void)
 
     //Search the pacman on the map and create him
     Pacman *pacman = getPacmanInstance();
+    unsigned int initialX = pacman->x;
+    unsigned int initialY = pacman->y;
     Map *map = getMapInstance();
     //If the pacman is not found
     if(!pacman){
@@ -149,6 +151,8 @@ int main(void)
 
         changeDirectionGhost(blinky);
         changeDirectionGhost(clyde);
+        changeDirectionGhost(inky);
+        changeDirectionGhost(pinky);
 
         SDL_RenderPresent(renderer);
         //Event handling
@@ -174,6 +178,14 @@ int main(void)
                 break;
         }
         terminate = update(clyde, blinky, inky, pinky);
+        if(terminate){
+            if(pacman->life > 0 ){
+                pacman->life--;
+                terminate = 0;
+                pacman->x = initialX;
+                pacman->y = initialY;
+            }
+        }
         if(event.window.event == SDL_WINDOWEVENT_CLOSE){
             terminate = 1;
         }
@@ -190,6 +202,8 @@ int main(void)
     freePacman();
     freeGhost(clyde);
     freeGhost(blinky);
+    freeGhost(inky);
+    freeGhost(pinky);
     freeMap();
     TTF_CloseFont(police);
     TTF_Quit();
