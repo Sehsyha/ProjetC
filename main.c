@@ -21,7 +21,7 @@
 int main(void)
 {
     //Load the map
-    loadMap("../projec/hard.map");
+    loadMap("../projec/rdastn.map");
 
     //Search the pacman on the map and create him
     Pacman *pacman = getPacmanInstance();
