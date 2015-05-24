@@ -11,5 +11,7 @@ int renderPacman(int open, SDL_Renderer *renderer);
 void renderMap(SDL_Renderer *renderer);
 void renderClyde(Ghost *clyde, SDL_Renderer *renderer);
 void renderBlinky(Ghost *blinky, SDL_Renderer *renderer);
+void renderInky(Ghost *inky, SDL_Renderer *renderer);
+void renderPinky(Ghost *pinky, SDL_Renderer *renderer);
 
 #endif

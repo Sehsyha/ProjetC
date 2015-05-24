@@ -7,7 +7,7 @@ int collision(Ghost *ghost);
  * Function used to update the map with the move of the pacman
  *
  */
-int update(Ghost *clyde, Ghost *blinky){
+int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
     Map *map = getMapInstance();
     Pacman *pacman = getPacmanInstance();
     int result = 0;
@@ -136,6 +136,12 @@ int update(Ghost *clyde, Ghost *blinky){
         result = 1;
     }
     if(collision(blinky)){
+        result = 1;
+    }
+    if(collision(inky)){
+        result = 1;
+    }
+    if(collision(pinky)){
         result = 1;
     }
 
