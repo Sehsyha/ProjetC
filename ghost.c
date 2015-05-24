@@ -156,6 +156,10 @@ void changeDirectionBlinky(Ghost *g){
                 direction = 2 + rand() % 2;
             } else if (tc == 4) {
                 direction = ( 3 + rand() % 2) % 4;
+            } else if (tc == 5) {
+                direction = (rand()%2 == 0)? 0 : 2;
+            } else if (tc == 6) {
+                direction = (rand()%2 == 0 )? 1 : 3;
             }
         }
 
