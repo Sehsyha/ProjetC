@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "liste_chainee.h"
 
-Liste *initialisation()
+Liste *initialisation(int nbvaleur)
 {
     Liste *liste = malloc(sizeof(*liste));
     Element *element = malloc(sizeof(*element));
@@ -12,9 +12,10 @@ Liste *initialisation()
         exit(EXIT_FAILURE);
     }
 
-    element->nombre = -1;
+    element->nombre = malloc(nbvaleur*sizeof(int));
     element->suivant = NULL;
     liste->premier = element;
+    liste->nuplet = nbvaleur;
 
     return liste;
 }
@@ -91,5 +92,13 @@ Liste *tail(Liste *l) {
         return l;
     } else {
         return NULL;
+    }
+}
+
+int nuplet(Liste *l) {
+    if (Empty(*l) == 0) {
+        return -1;
+    } else {
+        l->nuplet;
     }
 }

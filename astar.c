@@ -2,13 +2,20 @@
 #include "ghost.h"
 #include "pacman.h"
 #include "liste_chainee.h"
+#include "couple.h"
 
 float heuristique(Ghost *g);
+Liste **graphageMap(Map *m);
 
 unsigned int nextDirection(Ghost *g){
     Map *map = getMapInstance();
     float distance = heuristique(g);
     Liste **tab = graphageMap(map);
+
+    Liste *ouverte = initialisation(2);
+    Liste *ferme = initialisation(2);
+
+
 
     return NORTH;
 }
@@ -33,7 +40,7 @@ Liste **graphageMap(Map *m) {
     Liste rep[c][l];
     for (i = 1;i < c - 1; i++) {
         for (j = 1; j < l - 1; j++) {
-            Liste *incident = initialisation();
+            Liste *incident = initialisation(1);
 
             if (m ->cells[i][j] == 1) {
                 rep[i][j] = *incident;
