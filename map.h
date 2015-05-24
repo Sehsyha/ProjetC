@@ -13,6 +13,8 @@
 #define VOID '0'
 #define CLYDE 'C'
 #define BLINKY 'B'
+#define PINKY 'P'
+#define INKY 'I'
 
 #define NORTH 0
 #define EAST 1

@@ -15,6 +15,8 @@ SDL_Texture *texturePacmanW = NULL;
 SDL_Texture *textureGum = NULL;
 SDL_Texture *textureClyde = NULL;
 SDL_Texture *textureBlinky = NULL;
+SDL_Texture *textureInky = NULL;
+SDL_Texture *texturePinky = NULL;
 
 SDL_Texture *getTextureWallV(){
     return textureWallV;
@@ -74,6 +76,14 @@ SDL_Texture *getTextureClyde(){
 
 SDL_Texture *getTextureBlinky(){
     return textureBlinky;
+}
+
+SDL_Texture *getTextureInky(){
+    return textureInky;
+}
+
+SDL_Texture *getTexturePinky(){
+    return texturePinky;
 }
 
 void loadTextures(SDL_Renderer *renderer){
@@ -137,6 +147,14 @@ void loadTextures(SDL_Renderer *renderer){
     SDL_Surface *blinkyI = IMG_Load("../projec/blinky.png");
     textureBlinky = SDL_CreateTextureFromSurface(renderer, blinkyI);
     SDL_FreeSurface(blinkyI);
+
+    SDL_Surface *inkyI = IMG_Load("../projec/inky.png");
+    textureInky = SDL_CreateTextureFromSurface(renderer, inkyI);
+    SDL_FreeSurface(inkyI);
+
+    SDL_Surface *pinkyI = IMG_Load("../projec/pinky.png");
+    texturePinky = SDL_CreateTextureFromSurface(renderer, pinkyI);
+    SDL_FreeSurface(pinkyI);
 }
 
 void freeTextures(){
@@ -148,6 +166,8 @@ void freeTextures(){
     SDL_DestroyTexture(textureWallSW);
     SDL_DestroyTexture(textureClyde);
     SDL_DestroyTexture(textureBlinky);
+    SDL_DestroyTexture(textureInky);
+    SDL_DestroyTexture(texturePinky);
     SDL_DestroyTexture(textureVoid);
     SDL_DestroyTexture(textureGum);
     SDL_DestroyTexture(texturePacman);

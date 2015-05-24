@@ -50,6 +50,27 @@ int main(void)
         exit(EXIT_FAILURE);
     }
     printf("Blinky found !\n");
+
+    Ghost *inky = searchAndCreateGhost(INKY);
+    if(!inky){
+        printf("Inky not found on map\n");
+        freeMap(map);
+        freeGhost(clyde);
+        freeGhost(blinky);
+        exit(EXIT_FAILURE);
+    }
+    printf("Inky found !\n");
+
+    Ghost *pinky = searchAndCreateGhost(PINKY);
+    if(!pinky){
+        printf("Pinky not found on map\n");
+        freeMap(map);
+        freeGhost(clyde);
+        freeGhost(blinky);
+        freeGhost(inky);
+        exit(EXIT_FAILURE);
+    }
+    printf("Pinky found !\n");
     printf("SDL initialisation\n");
 
     //Create SDL objects
@@ -123,7 +144,8 @@ int main(void)
         open = renderPacman(open, renderer);
         renderClyde(clyde, renderer);
         renderBlinky(blinky, renderer);
-
+        renderPinky(pinky, renderer);
+        renderInky(inky, renderer);
 
         changeDirectionGhost(blinky);
         changeDirectionGhost(clyde);
@@ -151,7 +173,7 @@ int main(void)
                 }
                 break;
         }
-        terminate = update(clyde, blinky);
+        terminate = update(clyde, blinky, inky, pinky);
         if(event.window.event == SDL_WINDOWEVENT_CLOSE){
             terminate = 1;
         }

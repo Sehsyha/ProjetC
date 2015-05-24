@@ -126,3 +126,13 @@ void renderBlinky(Ghost *blinky, SDL_Renderer *renderer){
     SDL_Rect dest = { blinky->x, blinky->y, TILE_SIZE, TILE_SIZE };
     SDL_RenderCopy(renderer, getTextureBlinky(), NULL, &dest);
 }
+
+void renderInky(Ghost *inky, SDL_Renderer *renderer){
+    SDL_Rect dest = { inky->x, inky->y, TILE_SIZE, TILE_SIZE };
+    SDL_RenderCopy(renderer, getTextureInky(), NULL, &dest);
+}
+
+void renderPinky(Ghost *pinky, SDL_Renderer *renderer){
+    SDL_Rect dest = { pinky->x, pinky->y, TILE_SIZE, TILE_SIZE };
+    SDL_RenderCopy(renderer, getTexturePinky(), NULL, &dest);
+}

@@ -2,6 +2,8 @@
 
 void changeDirectionClyde(Ghost *g);
 void changeDirectionBlinky(Ghost *g);
+void changeDirectionInky(Ghost *g);
+void changeDirectionPinky(Ghost *g);
 
 Ghost *searchAndCreateGhost(char ghostType){
     Map *map = getMapInstance();
@@ -62,3 +64,15 @@ void changeDirectionBlinky(Ghost *g){
     Pacman *pacman = getPacmanInstance();
     g->direction = nextDirection(g);
 }
+
+void changeDirectionInky(Ghost *g){
+    Pacman *pacman = getPacmanInstance();
+    g->direction = nextDirection(g);
+}
+
+
+void changeDirectionPinky(Ghost *g){
+    Pacman *pacman = getPacmanInstance();
+    g->direction = nextDirection(g);
+}
+
