@@ -12,11 +12,19 @@ Liste *initialisation()
         exit(EXIT_FAILURE);
     }
 
-    element->nombre = 0;
+    element->nombre = -1;
     element->suivant = NULL;
     liste->premier = element;
 
     return liste;
+}
+
+int Empty(Liste *l) {
+    if (l->premier->nombre == -1) {
+        return 0;
+    } else {
+        return 1;
+    }
 }
 
 
@@ -66,4 +74,22 @@ void afficherListe(Liste *liste)
         actuel = actuel->suivant;
     }
     printf("NULL\n");
+}
+
+Element *head(Liste *l) {
+    if (Emplty(l) == 0) {
+        return l->premier;
+    } else {
+        return null;
+    }
+
+}
+
+Liste *tail(Liste *l) {
+    if (Empty(l) == 0) {
+        l->premier = l->premier->suivant;
+        return l;
+    } else {
+        return null;
+    }
 }
