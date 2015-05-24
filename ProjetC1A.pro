@@ -4,6 +4,8 @@ CONFIG -= app_bundle
 CONFIG -= qt
 LIBS += -lSDL2
 LIBS += -lSDL2_image
+LIBS += -lSDL2_mixer
+
 SOURCES += main.c \
     map.c \
     pacman.c \

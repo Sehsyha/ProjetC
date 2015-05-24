@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_mixer.h>
 #include "map.h"
 #include "pacman.h"
 #include "ghost.h"
@@ -62,6 +63,20 @@ int main(void)
         freeMap(map);
         return EXIT_FAILURE;
     }
+
+    if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) == -1){
+        printf("%s", Mix_GetError());
+    }
+
+    Mix_Music *music = NULL;
+    music = Mix_LoadMUS("../projec/pacman.wav");
+    if(!music){
+        printf("Erreur de chargement de la musique %s \n", Mix_GetError());
+    }else{
+        Mix_VolumeMusic(MIX_MAX_VOLUME);
+        Mix_PlayMusic(music, -1);
+    }
+
 
     //Create the window
     window = SDL_CreateWindow("Pacman", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, TILE_SIZE * map->row, TILE_SIZE * map->col, SDL_WINDOW_SHOWN);
@@ -124,7 +139,8 @@ int main(void)
         SDL_Delay(1000 / FPS);
     }
 
-
+    Mix_FreeMusic(music);
+    Mix_CloseAudio();
     freeTextures();
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
