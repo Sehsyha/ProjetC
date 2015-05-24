@@ -22,6 +22,7 @@ SDL_Texture *getTexturePacmanS();
 SDL_Texture *getTexturePacmanW();
 SDL_Texture *getTextureGum();
 SDL_Texture *getTextureClyde();
+SDL_Texture *getTextureBlinky();
 
 
 #endif

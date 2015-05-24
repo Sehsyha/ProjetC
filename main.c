@@ -119,10 +119,10 @@ int main(void)
     int open = 0;
     //Infinite loop until we want to stop the game
     while(!terminate){
-//        renderMap(renderer);
-//        open = renderPacman(open, renderer);
-//        renderClyde(clyde, renderer);
-//        renderBlinky(blinky, renderer);
+        renderMap(renderer);
+        open = renderPacman(open, renderer);
+        renderClyde(clyde, renderer);
+        renderBlinky(blinky, renderer);
 
 
         changeDirectionGhost(blinky);
