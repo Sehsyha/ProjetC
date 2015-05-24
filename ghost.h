@@ -12,6 +12,7 @@
 
 typedef struct Ghost Ghost;
 struct Ghost{
+    int sortie;
     unsigned int x;
     unsigned int y;
     unsigned int initialX;
