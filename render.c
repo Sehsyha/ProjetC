@@ -39,7 +39,11 @@ int renderPacman(int open, SDL_Renderer *renderer){
     int i = 0;
     for(i = pacman->life ; i > 0; i--){
         SDL_Rect dest2 = { map->col * TILE_SIZE - i * TILE_SIZE, map->row * TILE_SIZE, TILE_SIZE, TILE_SIZE };
-        SDL_RenderCopy(renderer, getTexturePacman(), NULL, &dest2);
+        SDL_RenderCopy(renderer, getTexturePacmanE(), NULL, &dest2);
+    }
+    for(i = 0 ; i  < map->col - pacman->life ; i++){
+        SDL_Rect dest2 = { map->col * TILE_SIZE + i * TILE_SIZE, map->row * TILE_SIZE, TILE_SIZE, TILE_SIZE };
+        SDL_RenderCopy(renderer, getTextureVoid(), NULL, &dest2);
     }
     return open;
 }
@@ -53,7 +57,7 @@ void renderMap(SDL_Renderer *renderer){
     Map *map = getMapInstance();
     unsigned int i, j;
     //Clean the view
-    SDL_SetRenderDrawColor(renderer,255,255,255,255);
+//    SDL_SetRenderDrawColor(renderer,255,255,255,255);
     SDL_RenderClear(renderer);
 
     //Print the map
