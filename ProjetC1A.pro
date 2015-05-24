@@ -13,7 +13,8 @@ SOURCES += main.c \
     render.c \
     texture.c \
     update.c \
-    astar.c
+    astar.c \
+    liste_chainee.c
 
 HEADERS += \
     map.h \
@@ -23,5 +24,6 @@ HEADERS += \
     config.h \
     texture.h \
     update.h \
-    astar.h
+    astar.h \
+    liste_chainee.h
 
