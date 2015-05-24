@@ -28,7 +28,7 @@ int *graphageMap(Map *m) {
     c = m ->col;
     l = m ->row;
 
-    int rep[c*l][c*l];
+    
 
 
 }
