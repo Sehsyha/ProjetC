@@ -20,7 +20,7 @@
 int main(void)
 {
     //Load the map
-    loadMap("../projec/1.map");
+    loadMap("../projec/original.map");
 
     //Search the pacman on the map and create him
     Pacman *pacman = getPacmanInstance();
@@ -79,7 +79,7 @@ int main(void)
 
 
     //Create the window
-    window = SDL_CreateWindow("Pacman", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, TILE_SIZE * map->row, TILE_SIZE * map->col, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("Pacman", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, TILE_SIZE * map->col, TILE_SIZE * map->row, SDL_WINDOW_SHOWN);
 
     //If there is an error
     if(window == 0){

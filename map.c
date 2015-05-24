@@ -49,7 +49,7 @@ void loadMap(char *path){
     //Get the number of columns
     fgets(line, MAX_SIZE, file);
     col = atoi(line);
-    if(row < 1){
+    if(col < 1){
         printf("Columns must be > 1 : %d\n", col);
         fclose(file);
         exit(EXIT_FAILURE);
