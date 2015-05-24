@@ -1,13 +1,11 @@
 -	Nettoyer le code si besoin (Tout factoriser pour réécrire le moins possible)
 
--	Ajouter du son au jeu
 -	Finir le A* //Yoann
 -	Faire l'IA des fantomes
 -	Faire le skin des fantomes ainsi que l'animation de mouvement    IMPORTANT: Easter Eggs code konami => les fantômes se transforment en Quinsson
 -	Faire le générateur de cartes ainsi que les cartes de base //Yoann
--	Gérer les collisions avec les fantomes
 -	Ajouter la boule qui permet de manger les autres fantomes
--	Ajouter affichage du score et vie restantes
+-	Ajouter affichage du score
 -	Faire un menu permettant de choisir la carte
 
 
