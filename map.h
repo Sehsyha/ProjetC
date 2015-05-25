@@ -38,6 +38,12 @@ void printMap(Map *map);
 void loadMap(char *path);
 void freeMap();
 char testCollision(unsigned int newX, unsigned int newY);
+<<<<<<< HEAD
 int *testCoude(unsigned int newX, unsigned int newY);
 
+=======
+int *testCoude(unsigned int newX, unsigned int newY, int *rep);
+void setQ();
+int getQ();
+>>>>>>> 7cc32468e8556d976d99e6e79a06b42293818c5a
 #endif

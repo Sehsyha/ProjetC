@@ -152,30 +152,43 @@ void renderMap(SDL_Renderer *renderer){
 void renderClyde(Ghost *clyde, SDL_Renderer *renderer){
     SDL_Rect dest = { clyde->x, clyde->y, TILE_SIZE, TILE_SIZE };
     Pacman *pacman = getPacmanInstance();
-    if(pacman->powerTime > 0){
-        SDL_RenderCopy(renderer, getTextureFear(), NULL, &dest);
+    if(getQ()){
+        SDL_RenderCopy(renderer, getTextureQ(), NULL, &dest);
     }else{
-        SDL_RenderCopy(renderer, getTextureClyde(), NULL, &dest);
+        if(pacman->powerTime > 0){
+            SDL_RenderCopy(renderer, getTextureFear(), NULL, &dest);
+        }else{
+            SDL_RenderCopy(renderer, getTextureClyde(), NULL, &dest);
+        }
     }
 }
 
 void renderBlinky(Ghost *blinky, SDL_Renderer *renderer){
     SDL_Rect dest = { blinky->x, blinky->y, TILE_SIZE, TILE_SIZE };
     Pacman *pacman = getPacmanInstance();
-    if(pacman->powerTime > 0){
-        SDL_RenderCopy(renderer, getTextureFear(), NULL, &dest);
+    if(getQ()){
+        SDL_RenderCopy(renderer, getTextureQ(), NULL, &dest);
     }else{
-        SDL_RenderCopy(renderer, getTextureBlinky(), NULL, &dest);
+        if(pacman->powerTime > 0){
+            SDL_RenderCopy(renderer, getTextureFear(), NULL, &dest);
+        }else{
+            SDL_RenderCopy(renderer, getTextureBlinky(), NULL, &dest);
+        }
     }
+
 }
 
 void renderInky(Ghost *inky, SDL_Renderer *renderer){
     SDL_Rect dest = { inky->x, inky->y, TILE_SIZE, TILE_SIZE };
     Pacman *pacman = getPacmanInstance();
-    if(pacman->powerTime > 0){
-        SDL_RenderCopy(renderer, getTextureFear(), NULL, &dest);
+    if(getQ()){
+        SDL_RenderCopy(renderer, getTextureQ(), NULL, &dest);
     }else{
-        SDL_RenderCopy(renderer, getTextureInky(), NULL, &dest);
+        if(pacman->powerTime > 0){
+            SDL_RenderCopy(renderer, getTextureFear(), NULL, &dest);
+        }else{
+            SDL_RenderCopy(renderer, getTextureInky(), NULL, &dest);
+        }
     }
 }
 
@@ -183,9 +196,14 @@ void renderPinky(Ghost *pinky, SDL_Renderer *renderer){
     SDL_Rect dest = { pinky->x, pinky->y, TILE_SIZE, TILE_SIZE };
     SDL_RenderCopy(renderer, getTexturePinky(), NULL, &dest);
     Pacman *pacman = getPacmanInstance();
-    if(pacman->powerTime > 0){
-        SDL_RenderCopy(renderer, getTextureFear(), NULL, &dest);
+    if(getQ()){
+        SDL_RenderCopy(renderer, getTextureQ(), NULL, &dest);
     }else{
-        SDL_RenderCopy(renderer, getTexturePinky(), NULL, &dest);
+        if(pacman->powerTime > 0){
+            SDL_RenderCopy(renderer, getTextureFear(), NULL, &dest);
+        }else{
+            SDL_RenderCopy(renderer, getTexturePinky(), NULL, &dest);
+        }
     }
+
 }
