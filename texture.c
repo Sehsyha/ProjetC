@@ -104,83 +104,83 @@ SDL_Texture *getTexturePinky(){
 void loadTextures(SDL_Renderer *renderer){
     //Create the textures of all the sprites we need
 
-    SDL_Surface *gate = IMG_Load("../projec/gate.png");
+    SDL_Surface *gate = IMG_Load("../projec/texture/mur/gate.png");
     textureGate = SDL_CreateTextureFromSurface(renderer, gate);
     SDL_FreeSurface(gate);
 
-    SDL_Surface *bigGum = IMG_Load("../projec/bigGum.png");
+    SDL_Surface *bigGum = IMG_Load("../projec/texture/gum/bigGum.png");
     textureBigGum = SDL_CreateTextureFromSurface(renderer, bigGum);
     SDL_FreeSurface(bigGum);
 
-    SDL_Surface *fear = IMG_Load("../projec/fear.png");
+    SDL_Surface *fear = IMG_Load("../projec/texture/personnage/ghost/fear.png");
     textureFear = SDL_CreateTextureFromSurface(renderer, fear);
     SDL_FreeSurface(fear);
 
-    SDL_Surface *wallV = IMG_Load("../projec/wallV.png");
+    SDL_Surface *wallV = IMG_Load("../projec/texture/mur/wallV.png");
     textureWallV = SDL_CreateTextureFromSurface(renderer, wallV);
     SDL_FreeSurface(wallV);
 
-    SDL_Surface *wallH = IMG_Load("../projec/wallH.png");
+    SDL_Surface *wallH = IMG_Load("../projec/texture/mur/wallH.png");
     textureWallH = SDL_CreateTextureFromSurface(renderer, wallH);
     SDL_FreeSurface(wallH);
 
-    SDL_Surface *wallNW = IMG_Load("../projec/wallNW.png");
+    SDL_Surface *wallNW = IMG_Load("../projec/texture/mur/wallNW.png");
     textureWallNW = SDL_CreateTextureFromSurface(renderer, wallNW);
     SDL_FreeSurface(wallNW);
 
-    SDL_Surface *wallNE = IMG_Load("../projec/wallNE.png");
+    SDL_Surface *wallNE = IMG_Load("../projec/texture/mur/wallNE.png");
     textureWallNE = SDL_CreateTextureFromSurface(renderer, wallNE);
     SDL_FreeSurface(wallNE);
 
-    SDL_Surface *wallSW = IMG_Load("../projec/wallSW.png");
+    SDL_Surface *wallSW = IMG_Load("../projec/texture/mur/wallSW.png");
     textureWallSW = SDL_CreateTextureFromSurface(renderer, wallSW);
     SDL_FreeSurface(wallSW);
 
-    SDL_Surface *wallSE = IMG_Load("../projec/wallSE.png");
+    SDL_Surface *wallSE = IMG_Load("../projec/texture/mur/wallSE.png");
     textureWallSE = SDL_CreateTextureFromSurface(renderer, wallSE);
     SDL_FreeSurface(wallSE);
 
-    SDL_Surface *voidI = IMG_Load("../projec/void.png");
+    SDL_Surface *voidI = IMG_Load("../projec/texture/mur/void.png");
     textureVoid = SDL_CreateTextureFromSurface(renderer, voidI);
     SDL_FreeSurface(voidI);
 
-    SDL_Surface *pacmanI = IMG_Load("../projec/pacman.png");
+    SDL_Surface *pacmanI = IMG_Load("../projec/texture/personnage/pacman/pacman.png");
     texturePacman = SDL_CreateTextureFromSurface(renderer, pacmanI);
     SDL_FreeSurface(pacmanI);
 
-    SDL_Surface *pacmanN = IMG_Load("../projec/pacmanN.png");
+    SDL_Surface *pacmanN = IMG_Load("../projec/texture/personnage/pacman/pacmanN.png");
     texturePacmanN = SDL_CreateTextureFromSurface(renderer, pacmanN);
     SDL_FreeSurface(pacmanN);
 
-    SDL_Surface *pacmanE = IMG_Load("../projec/pacmanE.png");
+    SDL_Surface *pacmanE = IMG_Load("../projec/texture/personnage/pacman/pacmanE.png");
     texturePacmanE = SDL_CreateTextureFromSurface(renderer, pacmanE);
     SDL_FreeSurface(pacmanE);
 
-    SDL_Surface *pacmanS = IMG_Load("../projec/pacmanS.png");
+    SDL_Surface *pacmanS = IMG_Load("../projec/texture/personnage/pacman/pacmanS.png");
     texturePacmanS = SDL_CreateTextureFromSurface(renderer, pacmanS);
     SDL_FreeSurface(pacmanS);
 
-    SDL_Surface *pacmanW = IMG_Load("../projec/pacmanW.png");
+    SDL_Surface *pacmanW = IMG_Load("../projec/texture/personnage/pacman/pacmanW.png");
     texturePacmanW = SDL_CreateTextureFromSurface(renderer, pacmanW);
     SDL_FreeSurface(pacmanW);
 
-    SDL_Surface *gumI = IMG_Load("../projec/gum.png");
+    SDL_Surface *gumI = IMG_Load("../projec/texture/gum/gum.png");
     textureGum = SDL_CreateTextureFromSurface(renderer, gumI);
     SDL_FreeSurface(gumI);
 
-    SDL_Surface *clydeI = IMG_Load("../projec/clyde.png");
+    SDL_Surface *clydeI = IMG_Load("../projec/texture/personnage/ghost/clyde.png");
     textureClyde = SDL_CreateTextureFromSurface(renderer, clydeI);
     SDL_FreeSurface(clydeI);
 
-    SDL_Surface *blinkyI = IMG_Load("../projec/blinky.png");
+    SDL_Surface *blinkyI = IMG_Load("../projec/texture/personnage/ghost/blinky.png");
     textureBlinky = SDL_CreateTextureFromSurface(renderer, blinkyI);
     SDL_FreeSurface(blinkyI);
 
-    SDL_Surface *inkyI = IMG_Load("../projec/inky.png");
+    SDL_Surface *inkyI = IMG_Load("../projec/texture/personnage/ghost/inky.png");
     textureInky = SDL_CreateTextureFromSurface(renderer, inkyI);
     SDL_FreeSurface(inkyI);
 
-    SDL_Surface *pinkyI = IMG_Load("../projec/pinky.png");
+    SDL_Surface *pinkyI = IMG_Load("../projec/texture/personnage/ghost/pinky.png");
     texturePinky = SDL_CreateTextureFromSurface(renderer, pinkyI);
     SDL_FreeSurface(pinkyI);
 }
