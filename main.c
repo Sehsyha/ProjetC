@@ -306,7 +306,7 @@ int main(void)
         SDL_DestroyTexture(scoreTN);
         SDL_FreeSurface(scoreN);
     }
-
+    printf("Score final : %d\n", pacman->point);
     Mix_FreeMusic(music);
     Mix_CloseAudio();
     freeTextures();
