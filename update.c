@@ -72,7 +72,7 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
             }
             break;
         case SOUTH:
-            if(testCollision(blinky->x, blinky->y + SPEED + TILE_SIZE - 1) != WALL){
+            if(testCollision(blinky->x, blinky->y + SPEED + TILE_SIZE - 1) != WALL && testCollision(blinky->x, blinky->y + SPEED + TILE_SIZE - 1) != GATE){
                 blinky->y += SPEED;
             }else{
                 blinky->direction = blinky->futureDirection;

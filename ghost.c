@@ -134,7 +134,6 @@ void changeDirectionClyde(Ghost *g){
 void changeDirectionBlinky(Ghost *g){
 
     unsigned int direction = g->direction;
-
     if (g->sortie == 0) {
 
         if (testCollision(g->x, g->y - SPEED) != WALL) {
@@ -146,6 +145,7 @@ void changeDirectionBlinky(Ghost *g){
         if (testCollision(g->x,g->y - SPEED) == GATE || testCollision(g->x , g->y + SPEED) == WALL) {
             g->sortie = 1;
         }
+        direction = g->direction;
 
     } else {
 
