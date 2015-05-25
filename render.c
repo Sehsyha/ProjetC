@@ -67,7 +67,7 @@ void renderMap(SDL_Renderer *renderer){
             switch(map->cells[j][i]){
                 case WALL:
                     if(j > 0 && i > 0 && i < map->col - 1 && j < map->row - 1){
-//                        printf("%d %d\n", j, i);
+                        SDL_RenderCopy(renderer, getTextureWallH(), NULL, &dest);
                         if(map->cells[j - 1][i] == WALL && map->cells[j + 1][i] == WALL){
                             SDL_RenderCopy(renderer, getTextureWallV(), NULL, &dest);
                         }else if(map->cells[j][i - 1] == WALL && map->cells[j][i + 1] == WALL){
@@ -97,8 +97,18 @@ void renderMap(SDL_Renderer *renderer){
                         }else if(i == map->col - 1 && j == map->row - 1){
                             SDL_RenderCopy(renderer, getTextureWallSE(), NULL, &dest);
                         }else if(i == 0){
+
                             if(map->cells[j + 1][i] == WALL && map->cells[j - 1][i] == WALL){
                                 SDL_RenderCopy(renderer, getTextureWallV(), NULL, &dest);
+                            }else
+                            if(map->cells[j - 1][i] == WALL && map->cells[j][i + 1] == WALL){
+                                SDL_RenderCopy(renderer, getTextureWallSW(), NULL, &dest);
+                            }else
+                            if(map->cells[j + 1][i] == WALL && map->cells[j][i + 1] == WALL){
+                                SDL_RenderCopy(renderer, getTextureWallNW(), NULL, &dest);
+                            }else
+                            if(map->cells[j - 1][i] == WALL && map->cells[j + 1][i] && map->cells[j][i+1] == WALL){
+                                SDL_RenderCopy(renderer, getTextureWallSW(), NULL, &dest);
                             }
                         }else if(j == 0){
                             if(map->cells[j][i + 1] == WALL && map->cells[j][i - 1] == WALL){
@@ -107,6 +117,12 @@ void renderMap(SDL_Renderer *renderer){
                         }else if(i == map->col - 1){
                             if(map->cells[j + 1][i] == WALL && map->cells[j - 1][i] == WALL){
                                 SDL_RenderCopy(renderer, getTextureWallV(), NULL, &dest);
+                            }else
+                            if(map->cells[j - 1][i] == WALL && map->cells[j][i-1] == WALL){
+                                SDL_RenderCopy(renderer, getTextureWallSE(), NULL, &dest);
+                            }else
+                            if(map->cells[j + 1][i] == WALL && map->cells[j][i-1] == WALL){
+                                SDL_RenderCopy(renderer, getTextureWallNE(), NULL, &dest);
                             }
                         }else if(j == map->row - 1){
                             if(map->cells[j][i + 1] == WALL && map->cells[j][i - 1] == WALL){
