@@ -133,6 +133,8 @@ void changeDirectionClyde(Ghost *g){
 
 void changeDirectionBlinky(Ghost *g){
 
+    unsigned int direction = g->direction;
+
     if (g->sortie == 0) {
 
         if (testCollision(g->x, g->y - SPEED) != WALL) {
@@ -147,66 +149,53 @@ void changeDirectionBlinky(Ghost *g){
 
     } else {
 
-        int collision = 1;
-        switch(g->direction){
-        case NORTH:
-            if(testCollision(g->x, g->y - SPEED) != WALL){
-                collision = 0;
-            }
-            break;
-        case SOUTH:
-            if(testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != WALL && testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != GATE){
-                collision = 0;
-            }
-            break;
-        case EAST:
-            if(testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) != WALL){
-                collision = 0;
-            }
-            break;
-        case WEST:
-            if(testCollision(g->x - SPEED, g->y) != WALL){
-                collision = 0;
-            }
-            break;
-        }
-        if(collision){
-            unsigned int direction = rand() % 4;
-            collision = 1;
-            do{
-                direction = rand() % 4;
-                switch(direction){
-                case NORTH:
-                    if(testCollision(g->x, g->y - SPEED) != WALL){
-                        collision = 0;
-                    }
-                    break;
-                case SOUTH:
-                    if(testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != WALL && testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != GATE){
-                        collision = 0;
-                    }
-                    break;
-                case EAST:
-                    if(testCollision(g->x + SPEED + TILE_SIZE - 1, g->y) != WALL){
-                        collision = 0;
-                    }
-                    break;
-                case WEST:
-                    if(testCollision(g->x - SPEED, g->y) != WALL && testCollision(g->x, g->y + SPEED + TILE_SIZE - 1) != GATE){
-                        collision = 0;
-                    }
-                    break;
-                }
-            }while(collision);
+        int *cpt;
+        cpt = testCoude(g->x,g->y);
 
-            if(direction != g->direction){
-                if(g->direction == STATIC){
-                    g->direction = direction;
-                }else{
-                    g->futureDirection = direction;
+        if (cpt[1] && cpt[2] && cpt[3]) {
+            direction = rand() % 4;
+        } else {
+            if (cpt[0] && cpt[1]) {
+                direction =rand() % 3;
+            } else if (cpt[1] && cpt[2]) {
+                direction = 1 + (rand()%4);
+            } else if (cpt[2] && cpt[3]) {
+                do {
+                    direction = rand() % 4;
+                } while (direction == EAST);
+
+            } else if (cpt[3] && cpt[0]) {
+                do {
+                    direction = rand()%4;
+                } while (direction == SOUTH);
+
+            } else {
+                if (cpt[0]) {
+                    direction = rand() % 2;
+                } else if (cpt[1]) {
+                    direction = (rand() % 2) + 1;
+                } else if (cpt[2]) {
+                    direction = (rand() % 2) + 2;
+                } else if (cpt[3]) {
+                    do {
+                        direction = rand() % 4;
+                    } while(direction == SOUTH || direction == EAST);
+                } else {
+                    direction = g->direction;
                 }
             }
         }
+    }
+
+
+
+    if(direction != g->direction){
+        if(g->direction == STATIC){
+            g->direction = direction;
+        }else{
+            g->futureDirection = direction;
+        }
+
     }
 }
 

@@ -137,7 +137,7 @@ char testCollision(unsigned int newX, unsigned int newY){
     return result;
 }
 
-int *testCoude(unsigned int newX, unsigned int newY, int* rep) {
+int *testCoude(unsigned int newX, unsigned int newY) {
     Map *map = getMapInstance();
     int xMap = round(newX / TILE_SIZE);
     int xMap1 = round((newX - SPEED)/TILE_SIZE);
@@ -145,15 +145,15 @@ int *testCoude(unsigned int newX, unsigned int newY, int* rep) {
     int yMap = round(newY / TILE_SIZE);
     int yMap1 = round((newY - SPEED)/TILE_SIZE);
     int yMap2 = round((newY + SPEED)/TILE_SIZE);
-    rep =(int*)malloc(4*sizeof(int));
+    int *rep =(int*)malloc(4*sizeof(int));
 
-    if (map->cells[yMap1][xMap] == '.') {
+    if (map->cells[yMap1][xMap] == GUM || map->cells[yMap1][xMap] == VOID ) {
         rep[0] = 1;
-    } else if (map->cells[yMap2][xMap] == '.') {
+    } else if (map->cells[yMap2][xMap] == GUM || map->cells[yMap2][xMap] == VOID) {
         rep[2] = 1;
-    } else if (map->cells[yMap][xMap1] == '.') {
+    } else if (map->cells[yMap][xMap1] == GUM || map->cells[yMap][xMap1] == VOID) {
         rep[3] = 1;
-    } else if (map->cells[yMap][xMap2] == '.') {
+    } else if (map->cells[yMap][xMap2] == GUM || map->cells[yMap][xMap2] == VOID ) {
         rep[1] = 1;
     }
     return rep;
