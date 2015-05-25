@@ -5,6 +5,8 @@ void changeDirectionBlinky(Ghost *g);
 void changeDirectionInky(Ghost *g);
 void changeDirectionPinky(Ghost *g);
 
+
+// Instancie les fantomes aprés lecture sur la carte
 Ghost *searchAndCreateGhost(char ghostType){
     Map *map = getMapInstance();
     Ghost *g = 0;
@@ -36,10 +38,12 @@ Ghost *searchAndCreateGhost(char ghostType){
     return g;
 }
 
+//Efface le fantome de la memoire
 void freeGhost(Ghost *g){
     free(g);
 }
 
+// Attribut au fantome en attribut une nouvelle direction suivant son algorithme
 void changeDirectionGhost(Ghost *g){
     switch(g->type){
     case CLYDE:
@@ -57,6 +61,7 @@ void changeDirectionGhost(Ghost *g){
     }
 }
 
+// Algorithme de deplacement de Clyde ( change de direction à chaque collision)
 void changeDirectionClyde(Ghost *g){
 
     if (g->sortie == 0) {
@@ -131,6 +136,7 @@ void changeDirectionClyde(Ghost *g){
     }
 }
 
+// Algorithme de deplacement de Blinky ( change de direction à chaque collision)
 void changeDirectionBlinky(Ghost *g){
 
     if (g->sortie == 0) {
@@ -213,6 +219,7 @@ void changeDirectionBlinky(Ghost *g){
     }
 }
 
+// Algorithme de deplacement de Inky ( change de direction à chaque collision)
 void changeDirectionInky(Ghost *g){
     if (g->sortie == 0) {
         if (testCollision(g->x, g->y - SPEED) == WALL) {
@@ -286,7 +293,7 @@ void changeDirectionInky(Ghost *g){
     }
 }
 
-
+// Algorithme de deplacement de Pynky ( change de direction à chaque collision)
 void changeDirectionPinky(Ghost *g){
     if (g->sortie == 0) {
 

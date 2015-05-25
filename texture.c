@@ -1,5 +1,8 @@
 #include "texture.h"
 
+//Regroupe les fonctions qui instancie pour la SDL toutes les textures utilisé
+
+
 SDL_Texture *textureWallV = NULL;
 SDL_Texture *textureWallH = NULL;
 SDL_Texture *textureWallNW = NULL;

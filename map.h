@@ -6,6 +6,13 @@
 #include <math.h>
 #include <pacman.h>
 
+/*
+ * Definis la norme d'une carte
+ *
+ *
+ */
+
+
 #define MAX_SIZE 100
 #define TILE_SIZE 20
 #define GUM '.'
@@ -33,7 +40,7 @@ struct Map
     char **cells;
 };
 
-Map *getMapInstance();
+Map *getMapInstance(); // Instancie une carte
 void printMap(Map *map);
 void loadMap(char *path);
 void freeMap();
