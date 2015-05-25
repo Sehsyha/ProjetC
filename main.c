@@ -58,6 +58,7 @@ int main(void)
     //Create SDL objects
     SDL_Window *window = 0;
     SDL_Event event;
+    SDL_Renderer *renderer = 0;
     int terminate = 0;
 
     //Initialise SDL
@@ -69,9 +70,52 @@ int main(void)
 
     window = SDL_CreateWindow("Pacman", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 544, 344, SDL_WINDOW_SHOWN);
     terminate = 0;
-    while(!terminate){
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    SDL_Surface *menu = IMG_Load("../projec/texture/menu/menu.jpg");
 
+    SDL_Texture *menuTexture = SDL_CreateTextureFromSurface(renderer, menu);
+
+    SDL_FreeSurface(menu);
+    SDL_RenderClear(renderer);
+    int x, y;
+    while(!terminate){
+        SDL_Rect dest = {0, 0, 544, 344};
+        SDL_RenderCopy(renderer, menuTexture, NULL, &dest);
+        SDL_RenderPresent(renderer);
+        SDL_WaitEvent(&event);
+        switch(event.type){
+            case SDL_MOUSEBUTTONDOWN:
+                x = event.motion.x;
+                y = event.motion.y;
+                if(x >= 57 && x <= (57+54) && y >=  94 && y <= (94 + 74)){
+                    loadMap("../projec/map/original.map");
+                    terminate = 1;
+                }
+                if(x >= 124 && x <= (124+53) && y >=  208 && y <= (208 + 73)){
+                    loadMap("../projec/map/hard.map");
+                    terminate = 1;
+                }
+                if(x >= 221 && x <= (221+59) && y >=  95 && y <= (95 + 80)){
+                    loadMap("../projec/map/maplol.map");
+                    terminate = 1;
+                }
+                if(x >= 311 && x <= (311+63) && y >=  208 && y <= (208 + 76)){
+                    loadMap("../projec/map/rdastn.map");
+                    terminate = 1;
+                }
+                if(x >= 350 && x <= (350+124) && y >=  73 && y <= (73 + 109)){
+                    loadMap("../projec/map/rdastn.map");
+                    terminate = 1;
+                    setQ();
+                }
+                break;
+        }
+
+        SDL_Delay(1000 / FPS);
     }
+    SDL_DestroyTexture(menuTexture);
+
+    SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
 
     //Search the pacman on the map and create him
@@ -167,8 +211,8 @@ int main(void)
     }
     int j;
     printf("SDL init success\n");
-    SDL_Renderer *renderer = 0;
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
     //NEED gerer erreurs
 
     loadTextures(renderer);
@@ -185,6 +229,7 @@ int main(void)
     int open = 0;
     int konami[10] = {0,0,0,0,0,0,0,0,0,0};
     //Infinite loop until we want to stop the game
+    terminate = 0;
     while(!terminate){
         SDL_Rect dest2 = {map->row * TILE_SIZE / 6, map->row * TILE_SIZE, map->row * TILE_SIZE / 15, 20};
         sprintf(scoreString, "%d", pacman->point);
