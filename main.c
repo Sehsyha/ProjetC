@@ -20,42 +20,59 @@
  */
 int main(void)
 {
-    int good = 0;
-    int numeroMap = 0;
-    do{
-        printf("Quelle map?\n");
-        printf("1 - Original\n");
-        printf("2 - Hard\n");
-        printf("3 - Lol\n");
-        printf("4 - Rez De chaussez Aile Sud Telecom Nancy\n");
-        scanf("%d", &numeroMap);
-        switch(numeroMap){
-            case 1:
-                loadMap("../projec/map/original.map");
-                good = 1;
-                break;
-            case 2:
-                loadMap("../projec/map/hard.map");
-                good = 1;
-                break;
+//    int good = 0;
+//    int numeroMap = 0;
+//    do{
+//        printf("Quelle map?\n");
+//        printf("1 - Original\n");
+//        printf("2 - Hard\n");
+//        printf("3 - Lol\n");
+//        printf("4 - Rez De chaussez Aile Sud Telecom Nancy\n");
+//        scanf("%d", &numeroMap);
+//        switch(numeroMap){
+//            case 1:
+//                loadMap("../projec/map/original.map");
+//                good = 1;
+//                break;
+//            case 2:
+//                loadMap("../projec/map/hard.map");
+//                good = 1;
+//                break;
 
-            case 3:
-                loadMap("../projec/map/maplol.map");
-                good = 1;
-                break;
-            case 4:
-                loadMap("../projec/map/rdastn.map");
-                good = 1;
-                break;
+//            case 3:
+//                loadMap("../projec/map/maplol.map");
+//                good = 1;
+//                break;
+//            case 4:
+//                loadMap("../projec/map/rdastn.map");
+//                good = 1;
+//                break;
 
-            case 42:
-                loadMap("../projec/map/rdastn.map");
-                good = 1;
-                setQ();
-                break;
-        }
-    }while(!good);
+//            case 42:
+//                loadMap("../projec/map/rdastn.map");
+//                good = 1;
+//                setQ();
+//                break;
+//        }
+//    }while(!good);
+    //Create SDL objects
+    SDL_Window *window = 0;
+    SDL_Event event;
+    int terminate = 0;
 
+    //Initialise SDL
+    if(SDL_Init(SDL_INIT_VIDEO) < 0){
+        printf("Error with SDL : %s\n", SDL_GetError());
+        SDL_Quit();
+        return EXIT_FAILURE;
+    }
+
+    window = SDL_CreateWindow("Pacman", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 544, 344, SDL_WINDOW_SHOWN);
+    terminate = 0;
+    while(!terminate){
+
+    }
+    SDL_DestroyWindow(window);
 
     //Search the pacman on the map and create him
     Pacman *pacman = getPacmanInstance();
@@ -109,18 +126,7 @@ int main(void)
     printf("Pinky found !\n");
     printf("SDL initialisation\n");
 
-    //Create SDL objects
-    SDL_Window *window = 0;
-    SDL_Event event;
-    int terminate = 0;
 
-    //Initialise SDL
-    if(SDL_Init(SDL_INIT_VIDEO) < 0){
-        printf("Error with SDL : %s\n", SDL_GetError());
-        SDL_Quit();
-        freeMap(map);
-        return EXIT_FAILURE;
-    }
 
     if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) == -1){
         printf("%s", Mix_GetError());
