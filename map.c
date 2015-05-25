@@ -148,12 +148,13 @@ char testCollision(unsigned int newX, unsigned int newY){
 
 int *testCoude(unsigned int newX, unsigned int newY) {
     Map *map = getMapInstance();
+    float i = 0.15;
     int xMap = round(newX / TILE_SIZE);
-    int xMap1 = round((newX - SPEED)/TILE_SIZE);
-    int xMap2 = round((newX + SPEED)/TILE_SIZE);
+    int xMap1 = round((newX - i*SPEED*TILE_SIZE)/TILE_SIZE);
+    int xMap2 = round((newX + i*SPEED*TILE_SIZE)/TILE_SIZE);
     int yMap = round(newY / TILE_SIZE);
-    int yMap1 = round((newY - SPEED)/TILE_SIZE);
-    int yMap2 = round((newY + SPEED)/TILE_SIZE);
+    int yMap1 = round((newY - i*SPEED*TILE_SIZE)/TILE_SIZE);
+    int yMap2 = round((newY + i*SPEED*TILE_SIZE)/TILE_SIZE);
     int *rep =(int*)malloc(4*sizeof(int));
 
     if (map->cells[yMap1][xMap] == GUM || map->cells[yMap1][xMap] == VOID ) {

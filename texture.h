@@ -4,6 +4,12 @@
 #include <SDL2/SDL_image.h>
 
 
+/*
+ * Regroupe les fonctions qui instancie pour la SDL toutes les textures utilisé
+ *
+ */
+
+
 void loadTextures(SDL_Renderer *renderer);
 void freeTextures();
 

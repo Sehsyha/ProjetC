@@ -1,6 +1,18 @@
 #ifndef H_LISTE_CHAINEE
 #define H_LISTE_CHAINEE
 
+
+/*
+ * Mise en place de la structure de liste simplement chainée
+ *
+ * avec la signature
+ *
+ * pour l'algorithme de A*
+ *
+ */
+
+
+
 typedef struct Element Element;
 struct Element
 {

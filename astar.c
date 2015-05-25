@@ -3,6 +3,11 @@
 #include "pacman.h"
 #include "liste_chainee.h"
 
+/*
+ * Tentative d'implatation de l'algorithme A*
+ *
+ */
+
 float heuristique(int x, int y);
 Liste **graphageMap(Map *m);
 

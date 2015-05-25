@@ -5,6 +5,11 @@
 #include "ghost.h"
 #include "liste_chainee.h"
 
+/*
+ * Tentative d'implatation de l'algorithme A*
+ *
+ */
+
 
 typedef struct point {
     int x,y;
