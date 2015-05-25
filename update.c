@@ -221,7 +221,19 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
         map->cells[pacman->y / TILE_SIZE][pacman->x / TILE_SIZE] = VOID;
     }
     if(result == GUM){
-        map->cells[pacman->y / TILE_SIZE][pacman->x / TILE_SIZE] = VOID;
+        switch(pacman->direction){
+            case NORTH:
+            case WEST:
+                map->cells[pacman->y / TILE_SIZE][pacman->x / TILE_SIZE] = VOID;
+                break;
+            case SOUTH:
+                map->cells[(pacman->y + TILE_SIZE) / TILE_SIZE][pacman->x / TILE_SIZE] = VOID;
+                break;
+            case EAST:
+                map->cells[pacman->y / TILE_SIZE][(pacman->x + TILE_SIZE) / TILE_SIZE] = VOID;
+                break;
+        }
+
         pacman->point++;
     }
     result = 0;
