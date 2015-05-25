@@ -243,6 +243,8 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
             clyde->x = clyde->initialX;
             clyde->y = clyde->initialY;
             clyde->sortie = 0;
+            clyde->direction = STATIC;
+            clyde->futureDirection = STATIC;
         }else{
             result = 1;
         }
@@ -254,6 +256,8 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
             blinky->x = blinky->initialX;
             blinky->y = blinky->initialY;
             blinky->sortie = 0;
+            blinky->direction = STATIC;
+            blinky->futureDirection = STATIC;
         }else{
             result = 1;
         }
@@ -264,6 +268,8 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
             inky->x = inky->initialX;
             inky->y = inky->initialY;
             inky->sortie = 0;
+            inky->direction = STATIC;
+            inky->futureDirection = STATIC;
         }else{
             result = 1;
         }
@@ -274,6 +280,8 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
             pinky->x = pinky->initialX;
             pinky->y = pinky->initialY;
             pinky->sortie = 0;
+            pinky->direction = STATIC;
+            pinky->futureDirection = STATIC;
         }else{
             result = 1;
         }

@@ -45,6 +45,7 @@ void freeGhost(Ghost *g){
 
 // Attribut au fantome en attribut une nouvelle direction suivant son algorithme
 void changeDirectionGhost(Ghost *g){
+    Pacman *pacman = getPacmanInstance();
     switch(g->type){
     case CLYDE:
         changeDirectionClyde(g);
@@ -63,7 +64,10 @@ void changeDirectionGhost(Ghost *g){
 
 // Algorithme de deplacement de Clyde ( change de direction à chaque collision)
 void changeDirectionClyde(Ghost *g){
+    Pacman *pacman = getPacmanInstance();
+    if(g->sortie == 0 && pacman->powerTime > 0){
 
+    }else
     if (g->sortie == 0) {
         if (testCollision(g->x, g->y - SPEED) == WALL) {
             g->sortie = 1;
@@ -138,7 +142,10 @@ void changeDirectionClyde(Ghost *g){
 
 // Algorithme de deplacement de Blinky ( change de direction à chaque collision)
 void changeDirectionBlinky(Ghost *g){
+    Pacman *pacman = getPacmanInstance();
+    if(g->sortie == 0 && pacman->powerTime > 0){
 
+    }else
     if (g->sortie == 0) {
 
         if (testCollision(g->x, g->y - SPEED) != WALL) {
@@ -221,6 +228,10 @@ void changeDirectionBlinky(Ghost *g){
 
 // Algorithme de deplacement de Inky ( change de direction à chaque collision)
 void changeDirectionInky(Ghost *g){
+    Pacman *pacman = getPacmanInstance();
+    if(g->sortie == 0 && pacman->powerTime > 0){
+
+    }else
     if (g->sortie == 0) {
         if (testCollision(g->x, g->y - SPEED) == WALL) {
             g->sortie = 1;
@@ -295,6 +306,10 @@ void changeDirectionInky(Ghost *g){
 
 // Algorithme de deplacement de Pynky ( change de direction à chaque collision)
 void changeDirectionPinky(Ghost *g){
+    Pacman *pacman = getPacmanInstance();
+    if(g->sortie == 0 && pacman->powerTime > 0){
+
+    }else
     if (g->sortie == 0) {
 
         if (testCollision(g->x, g->y - SPEED) != WALL) {
