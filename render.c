@@ -1,5 +1,11 @@
 #include "render.h"
 
+int q = 0;
+
+void setQ(){
+    q = 1;
+}
+
 /*
  *
  * Function used to render the pacman

@@ -47,6 +47,12 @@ int main(void)
                 loadMap("../projec/map/rdastn.map");
                 good = 1;
                 break;
+
+            case 42:
+                loadMap("../projec/map/rdastn.map");
+                good = 1;
+                setQ();
+                break;
         }
     }while(!good);
 
@@ -210,7 +216,7 @@ int main(void)
                                 for(j = 0 ; j < 10 ; j++){
                                     konami[j] = 0;
                                 }
-                                printf("Déjà deux\n");
+//                                printf("Déjà deux\n");
                             }else{
                                 konami[1] = 1;
                             }
