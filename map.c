@@ -1,4 +1,13 @@
 #include "map.h"
+int q = 0;
+
+void setQ(){
+    q = 1;
+}
+
+int getQ(){
+    return q;
+}
 
 Map *map = NULL;
 

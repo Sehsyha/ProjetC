@@ -39,5 +39,6 @@ void loadMap(char *path);
 void freeMap();
 char testCollision(unsigned int newX, unsigned int newY);
 int *testCoude(unsigned int newX, unsigned int newY, int *rep);
-
+void setQ();
+int getQ();
 #endif

@@ -20,6 +20,11 @@ SDL_Texture *texturePinky = NULL;
 SDL_Texture *textureBigGum = NULL;
 SDL_Texture *textureFear = NULL;
 SDL_Texture *textureGate = NULL;
+SDL_Texture *textureQ = NULL;
+
+SDL_Texture *getTextureQ(){
+    return textureQ;
+}
 
 SDL_Texture *getTextureGate(){
     return textureGate;
@@ -103,6 +108,10 @@ SDL_Texture *getTexturePinky(){
 
 void loadTextures(SDL_Renderer *renderer){
     //Create the textures of all the sprites we need
+
+    SDL_Surface *q = IMG_Load("../projec/texture/personnage/ghost/quinson.png");
+    textureQ = SDL_CreateTextureFromSurface(renderer, q);
+    SDL_FreeSurface(q);
 
     SDL_Surface *gate = IMG_Load("../projec/texture/mur/gate.png");
     textureGate = SDL_CreateTextureFromSurface(renderer, gate);
