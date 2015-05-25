@@ -31,20 +31,20 @@ int main(void)
         scanf("%d", &numeroMap);
         switch(numeroMap){
             case 1:
-                loadMap("../projec/original.map");
+                loadMap("../projec/map/original.map");
                 good = 1;
                 break;
             case 2:
-                loadMap("../projec/hard.map");
+                loadMap("../projec/map/hard.map");
                 good = 1;
                 break;
 
             case 3:
-                loadMap("../projec/maplol.map");
+                loadMap("../projec/map/maplol.map");
                 good = 1;
                 break;
             case 4:
-                loadMap("../projec/rdastn.map");
+                loadMap("../projec/map/rdastn.map");
                 good = 1;
                 break;
         }
