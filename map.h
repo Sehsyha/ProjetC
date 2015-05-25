@@ -38,7 +38,7 @@ void printMap(Map *map);
 void loadMap(char *path);
 void freeMap();
 char testCollision(unsigned int newX, unsigned int newY);
-int *testCoude(unsigned int newX, unsigned int newY);
+int *testCoude(unsigned int newX, unsigned int newY); // Renvoie dans un tableau de dimension 4 si un passage coudé est libre
 void setQ();
 int getQ();
 #endif
