@@ -97,6 +97,90 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
             break;
     }
 
+
+    if(inky->x % TILE_SIZE == 0 && inky->y % TILE_SIZE == 0){
+        if(inky->futureDirection != STATIC){
+            inky->direction = inky->futureDirection;
+            inky->futureDirection = STATIC;
+        }
+    }
+    switch(inky->direction){
+        case NORTH:
+            if(testCollision(inky->x, inky->y - SPEED) != WALL){
+                inky->y -= SPEED;
+            }else{
+                inky->direction = inky->futureDirection;
+                inky->futureDirection = STATIC;
+            }
+            break;
+        case SOUTH:
+            if(testCollision(inky->x, inky->y + SPEED + TILE_SIZE - 1) != WALL){
+                inky->y += SPEED;
+            }else{
+                inky->direction = inky->futureDirection;
+                inky->futureDirection = STATIC;
+            }
+            break;
+        case EAST:
+            if(testCollision(inky->x + SPEED + TILE_SIZE - 1, inky->y) != WALL){
+                inky->x += SPEED;
+            }else{
+                inky->direction = inky->futureDirection;
+                inky->futureDirection = STATIC;
+            }
+            break;
+        case WEST:
+            if(testCollision(inky->x - SPEED, inky->y) != WALL){
+                inky->x -= SPEED;
+            }else{
+                inky->direction = inky->futureDirection;
+                inky->futureDirection = STATIC;
+            }
+            break;
+    }
+
+
+    if(pinky->x % TILE_SIZE == 0 && pinky->y % TILE_SIZE == 0){
+        if(pinky->futureDirection != STATIC){
+            pinky->direction = pinky->futureDirection;
+            pinky->futureDirection = STATIC;
+        }
+    }
+    switch(pinky->direction){
+        case NORTH:
+            if(testCollision(pinky->x, pinky->y - SPEED) != WALL){
+                pinky->y -= SPEED;
+            }else{
+                pinky->direction = pinky->futureDirection;
+                pinky->futureDirection = STATIC;
+            }
+            break;
+        case SOUTH:
+            if(testCollision(pinky->x, pinky->y + SPEED + TILE_SIZE - 1) != WALL){
+                pinky->y += SPEED;
+            }else{
+                pinky->direction = pinky->futureDirection;
+                pinky->futureDirection = STATIC;
+            }
+            break;
+        case EAST:
+            if(testCollision(pinky->x + SPEED + TILE_SIZE - 1, pinky->y) != WALL){
+                pinky->x += SPEED;
+            }else{
+                pinky->direction = pinky->futureDirection;
+                pinky->futureDirection = STATIC;
+            }
+            break;
+        case WEST:
+            if(testCollision(pinky->x - SPEED, pinky->y) != WALL){
+                pinky->x -= SPEED;
+            }else{
+                pinky->direction = pinky->futureDirection;
+                pinky->futureDirection = STATIC;
+            }
+            break;
+    }
+
     switch(pacman->direction){
         case NORTH:
             if((result = testCollision(pacman->x, pacman->y - SPEED)) != WALL && result != GATE){
@@ -146,6 +230,7 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
             pacman->point += 250;
             clyde->x = clyde->initialX;
             clyde->y = clyde->initialY;
+            clyde->sortie = 0;
         }else{
             result = 1;
         }
@@ -154,8 +239,9 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
     if(collision(blinky)){
         if(pacman->powerTime > 0){
             pacman->point += 250;
-            clyde->x = clyde->initialX;
-            clyde->y = clyde->initialY;
+            blinky->x = blinky->initialX;
+            blinky->y = blinky->initialY;
+            blinky->sortie = 0;
         }else{
             result = 1;
         }
@@ -165,6 +251,7 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
             pacman->point += 250;
             inky->x = inky->initialX;
             inky->y = inky->initialY;
+            inky->sortie = 0;
         }else{
             result = 1;
         }
@@ -174,6 +261,7 @@ int update(Ghost *clyde, Ghost *blinky, Ghost *inky, Ghost *pinky){
             pacman->point += 250;
             pinky->x = pinky->initialX;
             pinky->y = pinky->initialY;
+            pinky->sortie = 0;
         }else{
             result = 1;
         }

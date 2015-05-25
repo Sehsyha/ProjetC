@@ -20,8 +20,36 @@
  */
 int main(void)
 {
-    //Load the map
-    loadMap("../projec/hard.map");
+    int good = 0;
+    int numeroMap = 0;
+    do{
+        printf("Quelle map?\n");
+        printf("1 - Original\n");
+        printf("2 - Hard\n");
+        printf("3 - Lol\n");
+        printf("4 - Rez De chaussez Aile Sud Telecom Nancy\n");
+        scanf("%d", &numeroMap);
+        switch(numeroMap){
+            case 1:
+                loadMap("../projec/original.map");
+                good = 1;
+                break;
+            case 2:
+                loadMap("../projec/hard.map");
+                good = 1;
+                break;
+
+            case 3:
+                loadMap("../projec/maplol.map");
+                good = 1;
+                break;
+            case 4:
+                loadMap("../projec/rdastn.map");
+                good = 1;
+                break;
+        }
+    }while(!good);
+
 
     //Search the pacman on the map and create him
     Pacman *pacman = getPacmanInstance();
